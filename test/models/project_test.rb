@@ -71,8 +71,8 @@ class ProjectTest < ActiveSupport::TestCase
     end
 
     should "have a scope to return all projects with a similar title" do
-      assert_equal ["Ender's Game", "Ender's Shadow"], Project.for_name("Ender").title.all.map(&:title).sort 
-      assert_equal ["Ender's Game", "Ender's Shadow"], Project.for_name("ende").title.all.map(&:title).sort 
+      assert_equal ["Ender's Game", "Ender's Shadow"], Project.for_title("Ender").title.all.map(&:title).sort 
+      assert_equal ["Ender's Game", "Ender's Shadow"], Project.for_title("ende").title.all.map(&:title).sort 
     end
 
     should "have a scope to search by category" do
@@ -104,17 +104,17 @@ class ProjectTest < ActiveSupport::TestCase
       # callback to check is cancelled or completed (set end date to today)
       @ml.cancel
       assert_equal @ml.end_date, Date.today
-      @EndersGame.complete
+      @EndersGame.status = "complete"
       assert_equal @EndersGame.end_date, Date.today      
     end
 
     should "correctly calculate length of project" do # TODO: P2
       # returns length of project as number of days
       # caculate start to end for complete/cancelled projects | start to today for active/hiatus projects
-      assert_equal @EndersGame.timeLength, 365
-      assert_equal @Eon.timeLength, 0
+      assert_equal @EndersGame.time_length, 365
+      assert_equal @Eon.time_length, 0
       @Eon.start_date = 5.days.ago.to_date
-      assert_equal @Eon.timeLength, 5
+      assert_equal @Eon.time_length, 5
     end
 
 end

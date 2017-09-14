@@ -27,11 +27,11 @@ class RoleTest < ActiveSupport::TestCase
     end
 
     should "have a scope to return active roles" do
-      assert_equal ["Editor", "Writer"], Roles.active.alphabetical.all.map(&:name)
+      assert_equal ["Editor", "Writer"], Roles.active.all.map(&:name).sort
     end 
 
     should "have a scope to return inctive roles" do
-      assert_equal ["Artist"], Roles.inactive.alphabetical.all.map(&:name)
+      assert_equal ["Artist"], Roles.inactive.all.map(&:name).sort
     end 
 
     should "only allow unique new roles" do
