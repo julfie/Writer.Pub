@@ -25,7 +25,7 @@ class ProjectRoleTest < ActiveSupport::TestCase
     end
 
     should "have a scope to alphabetize by user" do
-      # assert_equal ["artist", "Editor", "Writer"], ProjectRoles.by_user
+      assert_equal ["Albert", "Evan", "Juliann"], ProjectRoles.by_user.map{r|r.project.user}
     end
 
     should "have a scope to alphabetize by role" do
@@ -33,7 +33,7 @@ class ProjectRoleTest < ActiveSupport::TestCase
     end
 
     should "have a scope to alphabetize by project" do
-      # assert_equal ["artist", "Editor", "Writer"], ProjectRoles.by_project
+      assert_equal ["Ender's Game", "Ender's Shadow", "Eon"], ProjectRoles.by_project.map{r|r.project.name}
     end
 
     should "have a scope to return filled roles" do

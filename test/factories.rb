@@ -10,7 +10,10 @@ FactoryGirl.define do
     genre "Fantasy"
     title "Eon"
     start_date Date.today
-    status "complete"
+    end_date nil
+    category "Fiction"
+    status "active"
+    preview_level "public"
   end
 
   factory :project_role do

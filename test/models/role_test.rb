@@ -39,12 +39,6 @@ class RoleTest < ActiveSupport::TestCase
       deny @bad_role.valid?
     end
 
-    # should "dont allow people to select non active roles" do
-    #   assert @emporer.active = False
-    #   @bad_user_role = FactoryGirl.build(:user_role, user:@juliann, role:@artist)
-    #   deny @bad_user_role.valid?
-    # end
-
     should "allow roles to switch between active and inactive" do
       @editor.make_active
       assert @editor.active = False

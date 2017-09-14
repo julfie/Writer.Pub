@@ -55,7 +55,7 @@ class ProjectTest < ActiveSupport::TestCase
     end
 
     should "have a scope to list projects in alphabetical order" do
-      assert_equal ["Ender's Game", "Ender's Shadow", "Eon", "Eragon", "The Princess Bride"], Project.alphabetical.all.map(&:title)
+      assert_equal ["Ender's Game", "Ender's Shadow", "Eon", "Eragon", "My Life", "The Princess Bride"], Project.alphabetical.all.map(&:title)
     end
 
     should "have a scope to list projects chronologically" do
@@ -75,10 +75,14 @@ class ProjectTest < ActiveSupport::TestCase
       assert_equal ["Ender's Game", "Ender's Shadow"], Project.for_name("ende").title.all.map(&:title).sort 
     end
 
-    should "have a scope to search by category" do 
+    should "have a scope to search by category" do
+      assert_equal ["Ender's Game", "Ender's Shadow","Eragon", "The Princess Bride"], Project.for_category("fiction").title.all.map(&:title).sort 
+      assert_equal ["My Life"], Project.for_category("nonfiction").title.all.map(&:title).sort 
     end 
 
     should "have a scope to search by genre" do
+      assert_equal ["Ender's Game", "Ender's Shadow"], Project.for_genre("science fiction").title.all.map(&:title).sort 
+      assert_equal ["Eon", "Eragon", "The Princess Bride"], Project.for_category("fantasy").title.all.map(&:title).sort 
     end
 
     should "have scope to search by owner" do
@@ -98,12 +102,19 @@ class ProjectTest < ActiveSupport::TestCase
 
     should "set end date of cancelled or completed project to today" do
       # callback to check is cancelled or completed (set end date to today)
+      @ml.cancel
+      assert_equal @ml.end_date, Date.today
+      @EndersGame.complete
+      assert_equal @EndersGame.end_date, Date.today      
     end
 
     should "correctly calculate length of project" do # TODO: P2
       # returns length of project as number of days
-      # caculate start to end for complete/cancelled projects
-      # calculate start to today for active/hiatus projects
+      # caculate start to end for complete/cancelled projects | start to today for active/hiatus projects
+      assert_equal @EndersGame.timeLength, 365
+      assert_equal @Eon.timeLength, 0
+      @Eon.start_date = 5.days.ago.to_date
+      assert_equal @Eon.timeLength, 5
     end
 
 end
