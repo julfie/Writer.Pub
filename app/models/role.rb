@@ -12,6 +12,5 @@ class Role < ActiveRecord::Base
     # Validations
     # -----------------------------
     validates_presence_of :name
-    validates_presence_of :active
-    validates_uniqueness_of :name, case_insensitive
+    validates_uniqueness_of :name, case_sensitive: false
 end

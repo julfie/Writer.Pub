@@ -24,13 +24,13 @@ class Project < ActiveRecord::Base
     validates_presence_of :status
     validates_presence_of :genre
     validates_presence_of :category
-    validates_uniqueness_of :title, case_sensitive
+    validates_uniqueness_of :title, case_sensitive: true
     validates_inclusion_of :status, in: %w[active hiatus finished cancelled], message: "is not included in list of accepted status"
     validates_inclusion_of :preview_level, in: %w[hidden by_invitation preview published], message: "is not included in list of accepted preview levels"
     validates_date :start_date, on_or_before:  lambda { Date.current }
     validates_date :end_date, after: :start_date, allow_blank: true
-    validate :owner_is_active, on: create
-    validate ::is_unique_project?
+    # validate :owner_is_active, on: :create TODO:
+    validate :is_unique_project?
 
     # Callbacks
     # -----------------------------
@@ -44,6 +44,7 @@ class Project < ActiveRecord::Base
 
     def cancel
         self.set_end_date
+        self.status = "cancelled"
         self.save!
     end
 
@@ -52,7 +53,7 @@ class Project < ActiveRecord::Base
     end 
 
     def is_ended?
-        if self.end_date
+        if self.status == "completed" && self.end_date.nil?
             self.set_end_date
         end
     self.save!

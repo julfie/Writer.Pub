@@ -8,11 +8,11 @@ class ProjectRole < ActiveRecord::Base
 
     # scopes
     # -----------------------------
-    scope: by_user,     -> { order("user") }
-    scope: by_role,     -> { order("role") }
-    scope: by_project,  -> { order("user") }
-    scope: filled,      -> { where("user iS NOT NULL") }
-    scope: empty,       -> { where("user iS NULL") }
+    scope :by_user,     -> { order("user") }
+    scope :by_role,     -> { order("role") }
+    scope :by_project,  -> { order("user") }
+    scope :filled,      -> { where("user iS NOT NULL") }
+    scope :empty,       -> { where("user iS NULL") }
 
     # Validations
     # -----------------------------

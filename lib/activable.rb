@@ -1,7 +1,7 @@
 # 
 # Referenced source: http://www.toptal.com/ruby-on-rails/build-dumb-refactor-smart-ruby-on-rails
 #
-module Activeable
+module Activable
   def self.included(base)
     base.scope :active, -> { base.where(active: true) }
     base.scope :inactive, -> { base.where(active: false) }
