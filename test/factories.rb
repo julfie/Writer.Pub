@@ -17,9 +17,6 @@ FactoryGirl.define do
   end
 
   factory :project_role do
-    project_id @Eon
-    role_id @editor
-    user_id @jim
     invite_num 1
   end
 

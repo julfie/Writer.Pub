@@ -15,10 +15,10 @@ module Contexts
 
     # Context for both customer and employee users
     def create_user_artist_roles
-      @bobby_a = FactoryGirl.create(:user_role, user: @bobby , role: @artist)
-      @obeezy_a   = FactoryGirl.create(:user_role, user: @obeezy, role: @artist)
-      @fakey_a  = FactoryGirl.create(:user_role, user: @fakey, role: @artist)
-      @lazy_a     = FactoryGirl.create(:user_role, user: @lazy, role:  @artist) 
+      @bobby_a    = FactoryGirl.create(:user_role, user: @evan , role: @artist)
+      @obeezy_a   = FactoryGirl.create(:user_role, user: @juliann, role: @artist)
+      @fakey_a    = FactoryGirl.create(:user_role, user: @jim, role: @artist)
+      @lazy_a     = FactoryGirl.create(:user_role, user: @jim, role:  @artist) 
     end
     
     def destroy_user_artist_roles
@@ -29,8 +29,8 @@ module Contexts
     end
 
     def create_user_producer_roles
-      @bibby_p = FactoryGirl.create(:user_role, user: @bibby, role: @producer)
-      @dean_p   = FactoryGirl.create(:user_role, user: @dean, role:  @producer)
+      @bibby_p = FactoryGirl.create(:user_role, user: @ev, role: @producer)
+      @dean_p   = FactoryGirl.create(:user_role, user: @juliann, role:  @producer)
     end
     
     def destroy_user_producer_roles
@@ -39,7 +39,7 @@ module Contexts
     end
 
     def create_user_mixer_roles
-      @mike_p  = FactoryGirl.create(:user_role, user: @mike, role: @mixer)
+      @mike_p  = FactoryGirl.create(:user_role, user: @jim, role: @mixer)
     end
     
     def destroy_user_mixer_roles

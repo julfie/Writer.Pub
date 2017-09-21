@@ -4,7 +4,7 @@ require './test/sets/roles'
 require './test/sets/project_roles'
 require './test/sets/users'
 require './test/sets/messages'
-require './test/sets/users_roles'
+require './test/sets/user_roles'
 
 module Contexts
   # explicitly include all sets of contexts used for testing 

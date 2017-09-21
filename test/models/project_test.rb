@@ -61,15 +61,14 @@ class ProjectTest < ActiveSupport::TestCase
       destroy_projects
     end
 
-    should "have a active user as its owner" do
-      assert_not_nil @Eon.owner_id
-      ownr = Person.find(@Eon.owner_id)
-      assert ownr.active
-      assert @Eon.valid?
+    # should "have a active user as its owner" do
+    #   assert @juliann.active
+    #   temp = FactoryGirl.build(:project, title:"project", owner_id:@juliann)
+    #   assert temp.valid?
 
-      ownr.make_inactive
-      deny @Eon.valid?
-    end
+    #   @juliann.make_inactive
+    #   deny temp.valid?
+    # end
 
     should "have a scope to list projects in alphabetical order" do
       assert_equal ["Ender's Game", "Ender's Shadow", "Eon", "Eragon", "Hunger Games", "My Life", "The Princess Bride"], Project.alphabetical.all.map(&:title)
@@ -104,7 +103,10 @@ class ProjectTest < ActiveSupport::TestCase
     end
 
     should "have scope to search by owner" do
-      assert_equal [@EndersGame.title], Project.for_owner(@evan).all.map(&:title).sort 
+      temp = FactoryGirl.build(:project, title:"project", owner_id:@juliann)
+      temp.save!
+      assert_equal ["project"], Project.for_owner(4).all.map(&:title).sort
+      temp.destroy
     end
 
     should "verify project is not already in the system" do

@@ -64,14 +64,14 @@ class UserTest < ActiveSupport::TestCase
     end
 
     # test scope alphabetical...
-    should "show three users in alphabetical order" do
-      assert_equal ["Ev", "Evan", "Jim", "Joe"], User.alphabetical.map{|u| u.first_name}
+    should "show users in alphabetical order" do
+      assert_equal ["Ev", "Evan", "Jim", "Joe", "Juliann"], User.alphabetical.map{|u| u.first_name}
     end
 
     # test scope active...
-    should "show that there are three active users" do
-      assert_equal 3, User.active.size
-      assert_equal ["Evan", "Jim", "Joe"], User.active.map{|u| u.first_name}.sort
+    should "show that there are four active users" do
+      assert_equal 4, User.active.size
+      assert_equal ["Evan", "Jim", "Joe", "Juliann"], User.active.map{|u| u.first_name}.sort
     end
 
     # inactive

@@ -1458,3 +1458,606 @@ Migrating to AddUserIdToProject (20170921060541)
   [1m[36mProjectRole Load (0.2ms)[0m  [1mSELECT "project_roles".* FROM "project_roles"[0m
   [1m[35m (0.1ms)[0m  begin transaction
   [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[36mProject Load (1.5ms)[0m  [1mSELECT "projects".* FROM "projects"[0m
+  [1m[35mProject Load (0.2ms)[0m  SELECT "projects".* FROM "projects" WHERE (owner_id = NULL)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mProject Load (0.3ms)[0m  SELECT "projects".* FROM "projects" WHERE (owner_id = 1)
+  [1m[36mProject Load (0.2ms)[0m  [1mSELECT "projects".* FROM "projects" WHERE (owner_id = 2)[0m
+  [1m[35mProject Load (0.3ms)[0m  SELECT "projects".* FROM "projects"
+  [1m[36m (0.9ms)[0m  [1mCREATE TABLE "messages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "subject" varchar, "body" varchar, "invite_code" varchar, "sender_id" integer, "recipient_id" integer, "read_status" boolean DEFAULT 'f', "send_date" date, "flagged" boolean DEFAULT 'f', "user_id" integer) [0m
+  [1m[35m (0.6ms)[0m  CREATE TABLE "project_roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "project_id" integer, "role_id" integer, "user_id" integer, "invite_num" integer) 
+  [1m[36m (0.6ms)[0m  [1mCREATE TABLE "projects" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "owner_id" integer, "proj_description" varchar, "genre" varchar, "title" varchar, "start_date" date, "end_date" date, "category" varchar, "status" varchar DEFAULT 'active', "preview_level" varchar DEFAULT 'hidden', "user_id" integer) [0m
+  [1m[35m (0.5ms)[0m  CREATE TABLE "roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "active" boolean DEFAULT 't') 
+  [1m[36m (0.5ms)[0m  [1mCREATE TABLE "user_roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer) [0m
+  [1m[35m (0.5ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "first_name" varchar, "last_name" varchar, "email" varchar, "password_digest" varchar, "phone_number" varchar, "username" varchar, "active" boolean DEFAULT 't') 
+  [1m[36m (0.7ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.6ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20170921060541')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20170906133914')
+  [1m[36m (0.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20170906140551')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20170908062913')
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20170920221117')[0m
+  [1m[35m (0.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20170921032107')
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20170921042220')[0m
+  [1m[35m (0.7ms)[0m  CREATE TABLE "messages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "subject" varchar, "body" varchar, "invite_code" varchar, "sender_id" integer, "recipient_id" integer, "read_status" boolean DEFAULT 'f', "send_date" date, "flagged" boolean DEFAULT 'f', "user_id" integer) 
+  [1m[36m (0.7ms)[0m  [1mCREATE TABLE "project_roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "project_id" integer, "role_id" integer, "user_id" integer, "invite_num" integer) [0m
+  [1m[35m (0.6ms)[0m  CREATE TABLE "projects" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "owner_id" integer, "proj_description" varchar, "genre" varchar, "title" varchar, "start_date" date, "end_date" date, "category" varchar, "status" varchar DEFAULT 'active', "preview_level" varchar DEFAULT 'hidden', "user_id" integer) 
+  [1m[36m (0.5ms)[0m  [1mCREATE TABLE "roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "active" boolean DEFAULT 't') [0m
+  [1m[35m (0.6ms)[0m  CREATE TABLE "user_roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer) 
+  [1m[36m (0.8ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "first_name" varchar, "last_name" varchar, "email" varchar, "password_digest" varchar, "phone_number" varchar, "username" varchar, "active" boolean DEFAULT 't') [0m
+  [1m[35m (0.5ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.5ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20170921060541')
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20170906133914')[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20170906140551')
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20170908062913')[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20170920221117')
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20170921032107')[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20170921042220')
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mProject Load (1.8ms)[0m  [1mSELECT "projects".* FROM "projects"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'ebyrd@andrew.cmu.edu' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'ebyrd' LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest") VALUES (?, ?, ?, ?, ?, ?)  [["first_name", "Evan"], ["last_name", "Byrd"], ["email", "ebyrd@andrew.cmu.edu"], ["phone_number", "4104400887"], ["username", "ebyrd"], ["password_digest", "$2a$10$sYz7TTr8hM9yz3SguZG5TeaaY8.P/g4yRYdZvtVwkOuhFUI5yPbDG"]]
+  [1m[36m (0.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'esmith@esmith.com' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'esmith' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest", "active") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Ev"], ["last_name", "Smith"], ["email", "esmith@esmith.com"], ["phone_number", "4122144124"], ["username", "esmith"], ["password_digest", "$2a$10$RnZLXFGX9Bn.yBi4n0JPb.F3O7CsP4ytFakqkfCmA7uBUJkzwEbBG"], ["active", "f"]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'jshmoe@cmuis.net' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'jshmoe' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest") VALUES (?, ?, ?, ?, ?, ?)  [["first_name", "Joe"], ["last_name", "Shmoe"], ["email", "jshmoe@cmuis.net"], ["phone_number", "4434104122"], ["username", "jshmoe"], ["password_digest", "$2a$10$q19MJYrEudA7JYl4dSxNoOh1tz2MhewqjlgU7VS9U0o/n15zTQBCS"]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'jsim@andrew.cmu.edu' LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'jsim' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest") VALUES (?, ?, ?, ?, ?, ?)[0m  [["first_name", "Jim"], ["last_name", "Sim"], ["email", "jsim@andrew.cmu.edu"], ["phone_number", "4104400887"], ["username", "jsim"], ["password_digest", "$2a$10$87gyHchqFSfJlN6vnEfaOOgS0gn7ZH6.aB/qJ4om.Bf5vXqsgvKEW"]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'jbfields@andrew.cmu.edu' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'jbfields' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest") VALUES (?, ?, ?, ?, ?, ?)  [["first_name", "Juliann"], ["last_name", "Fields"], ["email", "jbfields@andrew.cmu.edu"], ["phone_number", "4104400887"], ["username", "jbfields"], ["password_digest", "$2a$10$U8M0o1GdpzM3R3vUFMFWOeVK0cke8vYAT5Zc4QHUKPqTMZRdmWE0O"]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Eon' LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "Eon"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Ender''s Game' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "science fiction"], ["title", "Ender's Game"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Ender''s Shadow' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "science fiction"], ["title", "Ender's Shadow"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Eragon' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "status", "preview_level", "end_date") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "Eragon"], ["start_date", "2016-09-21"], ["category", "fiction"], ["status", "finished"], ["preview_level", "published"], ["end_date", "2017-09-21"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'The Princess Bride' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "status", "preview_level", "end_date") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "The Princess Bride"], ["start_date", "2015-09-21"], ["category", "fiction"], ["status", "finished"], ["preview_level", "published"], ["end_date", "2016-09-21"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'My Life' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "autobiography"], ["title", "My Life"], ["start_date", "2017-09-20"], ["category", "nonfiction"], ["preview_level", "published"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Hunger Games' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "status", "preview_level", "end_date") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fiction"], ["title", "Hunger Games"], ["start_date", "2016-09-21"], ["category", "Book"], ["status", "finished"], ["preview_level", "published"], ["end_date", "2017-08-21"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.3ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 1]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "projects" WHERE "projects"."id" = ?  [["id", 2]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 3]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "projects" WHERE "projects"."id" = ?  [["id", 4]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 5]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.1ms)[0m  DELETE FROM "projects" WHERE "projects"."id" = ?  [["id", 7]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Eon' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mProject Load (0.2ms)[0m  [1mSELECT "projects".* FROM "projects"[0m
+  [1m[35mProject Load (0.2ms)[0m  SELECT "projects".* FROM "projects"
+  [1m[36mProject Load (0.2ms)[0m  [1mSELECT "projects".* FROM "projects"[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 6]]
+  [1m[35m (2.1ms)[0m  commit transaction
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mProject Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Eon' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "Eon"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Ender''s Game' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "science fiction"], ["title", "Ender's Game"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Ender''s Shadow' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "science fiction"], ["title", "Ender's Shadow"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Eragon' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "status", "preview_level", "end_date") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "Eragon"], ["start_date", "2016-09-21"], ["category", "fiction"], ["status", "finished"], ["preview_level", "published"], ["end_date", "2017-09-21"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'The Princess Bride' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "status", "preview_level", "end_date") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "The Princess Bride"], ["start_date", "2015-09-21"], ["category", "fiction"], ["status", "finished"], ["preview_level", "published"], ["end_date", "2016-09-21"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'My Life' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "autobiography"], ["title", "My Life"], ["start_date", "2017-09-20"], ["category", "nonfiction"], ["preview_level", "published"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Hunger Games' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "status", "preview_level", "end_date") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fiction"], ["title", "Hunger Games"], ["start_date", "2016-09-21"], ["category", "Book"], ["status", "finished"], ["preview_level", "published"], ["end_date", "2017-08-21"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 1]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "users" WHERE "users"."id" = ?  [["id", 2]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 3]]
+  [1m[35m (0.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.1ms)[0m  DELETE FROM "users" WHERE "users"."id" = ?  [["id", 4]]
+  [1m[36m (0.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 5]]
+  [1m[35m (0.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "projects" WHERE "projects"."id" = ?  [["id", 8]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 9]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "projects" WHERE "projects"."id" = ?  [["id", 10]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 11]]
+  [1m[35m (0.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.1ms)[0m  DELETE FROM "projects" WHERE "projects"."id" = ?  [["id", 12]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 14]]
+  [1m[35m (0.5ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'ebyrd@andrew.cmu.edu' LIMIT 1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'ebyrd' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest") VALUES (?, ?, ?, ?, ?, ?)  [["first_name", "Evan"], ["last_name", "Byrd"], ["email", "ebyrd@andrew.cmu.edu"], ["phone_number", "4104400887"], ["username", "ebyrd"], ["password_digest", "$2a$10$ieWVHnk3i0moyWyP.eitiefMsOsAgNViDXz9fRDelbjHrIEnBQ.6m"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'esmith@esmith.com' LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'esmith' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest", "active") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Ev"], ["last_name", "Smith"], ["email", "esmith@esmith.com"], ["phone_number", "4122144124"], ["username", "esmith"], ["password_digest", "$2a$10$DLsNlkWkw1CCVpGLpUeW/.9U1/1NuvzQWrrDx7i/CFNp5DEejJN42"], ["active", "f"]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'jshmoe@cmuis.net' LIMIT 1
+  [1m[36mUser Exists (0.0ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'jshmoe' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest") VALUES (?, ?, ?, ?, ?, ?)  [["first_name", "Joe"], ["last_name", "Shmoe"], ["email", "jshmoe@cmuis.net"], ["phone_number", "4434104122"], ["username", "jshmoe"], ["password_digest", "$2a$10$PRAk6PX69w4H.3HIA7o06u/56s01zkgSTaqBaO.ESSmeDFmfyTw76"]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'jsim@andrew.cmu.edu' LIMIT 1[0m
+  [1m[35mUser Exists (0.0ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'jsim' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest") VALUES (?, ?, ?, ?, ?, ?)[0m  [["first_name", "Jim"], ["last_name", "Sim"], ["email", "jsim@andrew.cmu.edu"], ["phone_number", "4104400887"], ["username", "jsim"], ["password_digest", "$2a$10$aDFhUGSEjoxtwoTAFo02k.nZyYroyzvrfeTITOKjuXbut0eoNqL96"]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.3ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'jbfields@andrew.cmu.edu' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'jbfields' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest") VALUES (?, ?, ?, ?, ?, ?)  [["first_name", "Juliann"], ["last_name", "Fields"], ["email", "jbfields@andrew.cmu.edu"], ["phone_number", "4104400887"], ["username", "jbfields"], ["password_digest", "$2a$10$FXpcwRu9fTJfD4DgN45I2.TsDCTAA8iT4BmuWYOu2jmRgiikAYs42"]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'ebyrd@andrew.cmu.edu' LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'ebyrd' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'ebyrd@andrew.cmu.edu' LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'ebyrd' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'ebyrd@andrew.cmu.edu' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'ebyrd' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mProject Load (0.2ms)[0m  SELECT "projects".* FROM "projects"
+  [1m[36mProject Load (0.2ms)[0m  [1mSELECT  "projects".* FROM "projects"  ORDER BY "projects"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 13]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mProject Load (0.2ms)[0m  SELECT "projects".* FROM "projects"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mProject Exists (0.2ms)[0m  SELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Eon' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)[0m  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "Eon"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[35m (2.1ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mProject Exists (0.1ms)[0m  SELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Ender''s Game' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)[0m  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "science fiction"], ["title", "Ender's Game"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[35m (0.5ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mProject Exists (0.1ms)[0m  SELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Ender''s Shadow' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)[0m  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "science fiction"], ["title", "Ender's Shadow"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mProject Exists (0.1ms)[0m  SELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Eragon' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "status", "preview_level", "end_date") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "Eragon"], ["start_date", "2016-09-21"], ["category", "fiction"], ["status", "finished"], ["preview_level", "published"], ["end_date", "2017-09-21"]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mProject Exists (0.1ms)[0m  SELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'The Princess Bride' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "status", "preview_level", "end_date") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "The Princess Bride"], ["start_date", "2015-09-21"], ["category", "fiction"], ["status", "finished"], ["preview_level", "published"], ["end_date", "2016-09-21"]]
+  [1m[35m (0.5ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mProject Exists (0.4ms)[0m  SELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'My Life' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)[0m  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "autobiography"], ["title", "My Life"], ["start_date", "2017-09-20"], ["category", "nonfiction"], ["preview_level", "published"]]
+  [1m[35m (0.5ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mProject Exists (0.1ms)[0m  SELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Hunger Games' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "status", "preview_level", "end_date") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fiction"], ["title", "Hunger Games"], ["start_date", "2016-09-21"], ["category", "Book"], ["status", "finished"], ["preview_level", "published"], ["end_date", "2017-08-21"]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mRole Exists (0.1ms)[0m  SELECT  1 AS one FROM "roles" WHERE LOWER("roles"."name") = LOWER('Editor') LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "roles" ("name") VALUES (?)[0m  [["name", "Editor"]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mRole Exists (0.1ms)[0m  SELECT  1 AS one FROM "roles" WHERE LOWER("roles"."name") = LOWER('Writer') LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "roles" ("name") VALUES (?)[0m  [["name", "Writer"]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mRole Exists (0.1ms)[0m  SELECT  1 AS one FROM "roles" WHERE LOWER("roles"."name") = LOWER('Artist') LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "roles" ("name", "active") VALUES (?, ?)[0m  [["name", "Artist"], ["active", "f"]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "project_roles" ("role_id", "invite_num") VALUES (?, ?)  [["role_id", 2], ["invite_num", 2]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.3ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "project_roles" ("role_id", "invite_num") VALUES (?, ?)[0m  [["role_id", 2], ["invite_num", 2]]
+  [1m[35m (2.1ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'ebyrd@andrew.cmu.edu' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'ebyrd' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 6]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "users" WHERE "users"."id" = ?  [["id", 7]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 8]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.1ms)[0m  DELETE FROM "users" WHERE "users"."id" = ?  [["id", 9]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 10]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36mProject Load (0.2ms)[0m  [1mSELECT "projects".* FROM "projects"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 15]]
+  [1m[35m (2.1ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "projects" WHERE "projects"."id" = ?  [["id", 16]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 17]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "projects" WHERE "projects"."id" = ?  [["id", 18]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 19]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "projects" WHERE "projects"."id" = ?  [["id", 20]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 21]]
+  [1m[35m (0.5ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'ebyrd@andrew.cmu.edu' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'ebyrd' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest") VALUES (?, ?, ?, ?, ?, ?)  [["first_name", "Evan"], ["last_name", "Byrd"], ["email", "ebyrd@andrew.cmu.edu"], ["phone_number", "4104400887"], ["username", "ebyrd"], ["password_digest", "$2a$10$j.u1LJXoKd.dJdstGPbptOZcnLasCB4szlLN6MkvPrd.4xUSD2TkO"]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'esmith@esmith.com' LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'esmith' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest", "active") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Ev"], ["last_name", "Smith"], ["email", "esmith@esmith.com"], ["phone_number", "4122144124"], ["username", "esmith"], ["password_digest", "$2a$10$zsbswicrhXU3az6AJFBl1Ojic9M8cpbkrc.MS0d3fdNW7R3Xq2rSi"], ["active", "f"]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'jshmoe@cmuis.net' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'jshmoe' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest") VALUES (?, ?, ?, ?, ?, ?)  [["first_name", "Joe"], ["last_name", "Shmoe"], ["email", "jshmoe@cmuis.net"], ["phone_number", "4434104122"], ["username", "jshmoe"], ["password_digest", "$2a$10$7QKdiNkzDqhXWBxMM3i4fe8EqfRGh8pTCEMzRKi3hS14FK0oitFCW"]]
+  [1m[36m (2.0ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'jsim@andrew.cmu.edu' LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'jsim' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest") VALUES (?, ?, ?, ?, ?, ?)[0m  [["first_name", "Jim"], ["last_name", "Sim"], ["email", "jsim@andrew.cmu.edu"], ["phone_number", "4104400887"], ["username", "jsim"], ["password_digest", "$2a$10$hGc9TW9GP2ZC6rKe.vQLw.wPrArS5rfhMg5j0US.NLS9a5.yfGiLq"]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'jbfields@andrew.cmu.edu' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'jbfields' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest") VALUES (?, ?, ?, ?, ?, ?)  [["first_name", "Juliann"], ["last_name", "Fields"], ["email", "jbfields@andrew.cmu.edu"], ["phone_number", "4104400887"], ["username", "jbfields"], ["password_digest", "$2a$10$OAuvu5wO7LMMo9yJLJShGeX8S47l0VuyOfEhsgUzWMW0CxEGfoTdS"]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Eon' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "Eon"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Ender''s Game' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "science fiction"], ["title", "Ender's Game"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Ender''s Shadow' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "science fiction"], ["title", "Ender's Shadow"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Eragon' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "status", "preview_level", "end_date") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "Eragon"], ["start_date", "2016-09-21"], ["category", "fiction"], ["status", "finished"], ["preview_level", "published"], ["end_date", "2017-09-21"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'The Princess Bride' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "status", "preview_level", "end_date") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "The Princess Bride"], ["start_date", "2015-09-21"], ["category", "fiction"], ["status", "finished"], ["preview_level", "published"], ["end_date", "2016-09-21"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'My Life' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "autobiography"], ["title", "My Life"], ["start_date", "2017-09-20"], ["category", "nonfiction"], ["preview_level", "published"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Hunger Games' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "status", "preview_level", "end_date") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fiction"], ["title", "Hunger Games"], ["start_date", "2016-09-21"], ["category", "Book"], ["status", "finished"], ["preview_level", "published"], ["end_date", "2017-08-21"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mRole Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "roles" WHERE LOWER("roles"."name") = LOWER('Editor') LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mRole Load (0.2ms)[0m  [1mSELECT "roles".* FROM "roles"[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "roles" WHERE "roles"."id" = ?[0m  [["id", 1]]
+  [1m[35m (2.1ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "roles" WHERE "roles"."id" = ?  [["id", 2]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "roles" WHERE "roles"."id" = ?[0m  [["id", 3]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mRole Exists (0.2ms)[0m  SELECT  1 AS one FROM "roles" WHERE LOWER("roles"."name") = LOWER('Editor') LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "roles" ("name") VALUES (?)[0m  [["name", "Editor"]]
+  [1m[35m (2.1ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mRole Exists (0.1ms)[0m  SELECT  1 AS one FROM "roles" WHERE LOWER("roles"."name") = LOWER('Writer') LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "roles" ("name") VALUES (?)[0m  [["name", "Writer"]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mRole Exists (0.1ms)[0m  SELECT  1 AS one FROM "roles" WHERE LOWER("roles"."name") = LOWER('Artist') LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "roles" ("name", "active") VALUES (?, ?)[0m  [["name", "Artist"], ["active", "f"]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "project_roles" ("invite_num", "role_id") VALUES (?, ?)  [["invite_num", 1], ["role_id", 4]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "project_roles" ("invite_num", "project_id", "role_id", "user_id") VALUES (?, ?, ?, ?)[0m  [["invite_num", 2], ["project_id", 23], ["role_id", 5], ["user_id", 14]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "project_roles" ("invite_num", "project_id", "role_id") VALUES (?, ?, ?)  [["invite_num", 3], ["project_id", 24], ["role_id", 6]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 11]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "users" WHERE "users"."id" = ?  [["id", 12]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 13]]
+  [1m[35m (0.5ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "users" WHERE "users"."id" = ?  [["id", 14]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 15]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  DELETE FROM "projects" WHERE "projects"."id" = ?  [["id", 22]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 23]]
+  [1m[35m (0.5ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "projects" WHERE "projects"."id" = ?  [["id", 24]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 25]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "projects" WHERE "projects"."id" = ?  [["id", 26]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 28]]
+  [1m[35m (0.5ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "roles" WHERE "roles"."id" = ?  [["id", 4]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "roles" WHERE "roles"."id" = ?[0m  [["id", 5]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "roles" WHERE "roles"."id" = ?  [["id", 6]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35mProjectRole Load (0.2ms)[0m  SELECT "project_roles".* FROM "project_roles"
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'ebyrd@andrew.cmu.edu' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'ebyrd' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest") VALUES (?, ?, ?, ?, ?, ?)  [["first_name", "Evan"], ["last_name", "Byrd"], ["email", "ebyrd@andrew.cmu.edu"], ["phone_number", "4104400887"], ["username", "ebyrd"], ["password_digest", "$2a$10$C.6OfYfd.Tn6m7QCyaFJ8usbbhXuALNDgUnDKdn3l44hWwn7AbX2."]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'esmith@esmith.com' LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'esmith' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest", "active") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Ev"], ["last_name", "Smith"], ["email", "esmith@esmith.com"], ["phone_number", "4122144124"], ["username", "esmith"], ["password_digest", "$2a$10$GesBGg3TfdTsB6zsTdCrCOGdvQdAXkQHfEgVIR.UdZrro12DmIzh."], ["active", "f"]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'jshmoe@cmuis.net' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'jshmoe' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest") VALUES (?, ?, ?, ?, ?, ?)  [["first_name", "Joe"], ["last_name", "Shmoe"], ["email", "jshmoe@cmuis.net"], ["phone_number", "4434104122"], ["username", "jshmoe"], ["password_digest", "$2a$10$0tWnQPrsqcUvo0DFOPubn.OIxFqFZfMUqhqKytGTDNlA9l0Kwznqq"]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'jsim@andrew.cmu.edu' LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'jsim' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest") VALUES (?, ?, ?, ?, ?, ?)[0m  [["first_name", "Jim"], ["last_name", "Sim"], ["email", "jsim@andrew.cmu.edu"], ["phone_number", "4104400887"], ["username", "jsim"], ["password_digest", "$2a$10$KQnwm8MPWsMoafWCaezgjODRZocJsfGYOBhjKmUxYI2NAhyXPqJ1e"]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'jbfields@andrew.cmu.edu' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'jbfields' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("first_name", "last_name", "email", "phone_number", "username", "password_digest") VALUES (?, ?, ?, ?, ?, ?)  [["first_name", "Juliann"], ["last_name", "Fields"], ["email", "jbfields@andrew.cmu.edu"], ["phone_number", "4104400887"], ["username", "jbfields"], ["password_digest", "$2a$10$45JgE2i1ZwmWh00MEC6JHuQx5QEZZvY8R9aDgDp1Yh2ZOLenL6Hji"]]
+  [1m[36m (2.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Eon' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "Eon"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Ender''s Game' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "science fiction"], ["title", "Ender's Game"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Ender''s Shadow' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "science fiction"], ["title", "Ender's Shadow"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Eragon' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "status", "preview_level", "end_date") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "Eragon"], ["start_date", "2016-09-21"], ["category", "fiction"], ["status", "finished"], ["preview_level", "published"], ["end_date", "2017-09-21"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mProject Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'The Princess Bride' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "status", "preview_level", "end_date") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "The Princess Bride"], ["start_date", "2015-09-21"], ["category", "fiction"], ["status", "finished"], ["preview_level", "published"], ["end_date", "2016-09-21"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'My Life' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'ebyrd@andrew.cmu.edu' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'ebyrd' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mProject Load (0.2ms)[0m  [1mSELECT "projects".* FROM "projects"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 27]]
+  [1m[35m (2.1ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "projects" WHERE "projects"."id" = ?  [["id", 29]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 30]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.1ms)[0m  DELETE FROM "projects" WHERE "projects"."id" = ?  [["id", 31]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "projects" WHERE "projects"."id" = ?[0m  [["id", 32]]
+  [1m[35m (0.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "projects" WHERE "projects"."id" = ?  [["id", 33]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mProject Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Eon' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "Eon"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Ender''s Game' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "science fiction"], ["title", "Ender's Game"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Ender''s Shadow' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "science fiction"], ["title", "Ender's Shadow"], ["start_date", "2017-09-20"], ["category", "fiction"], ["preview_level", "published"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Eragon' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "status", "preview_level", "end_date") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "Eragon"], ["start_date", "2016-09-21"], ["category", "fiction"], ["status", "finished"], ["preview_level", "published"], ["end_date", "2017-09-21"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'The Princess Bride' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "status", "preview_level", "end_date") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fantasy"], ["title", "The Princess Bride"], ["start_date", "2015-09-21"], ["category", "fiction"], ["status", "finished"], ["preview_level", "published"], ["end_date", "2016-09-21"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'My Life' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "preview_level") VALUES (?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "autobiography"], ["title", "My Life"], ["start_date", "2017-09-20"], ["category", "nonfiction"], ["preview_level", "published"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mProject Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "projects" WHERE "projects"."title" = 'Hunger Games' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "projects" ("proj_description", "genre", "title", "start_date", "category", "status", "preview_level", "end_date") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["proj_description", "A girl who pretends to be a boy because dragons and destiny"], ["genre", "fiction"], ["title", "Hunger Games"], ["start_date", "2016-09-21"], ["category", "Book"], ["status", "finished"], ["preview_level", "published"], ["end_date", "2017-08-21"]]
+  [1m[36m (0.4ms)[0m  [1mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to AddUserIdToProject (20170921060541)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  CREATE TEMPORARY TABLE "aprojects" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "owner_id" integer, "proj_description" varchar, "genre" varchar, "title" varchar, "start_date" date, "end_date" date, "category" varchar, "status" varchar DEFAULT 'active', "preview_level" varchar DEFAULT 'hidden', "user_id" integer) 
+  [1m[36m (0.1ms)[0m  [1mSELECT * FROM "projects"[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "aprojects" ("id","owner_id","proj_description","genre","title","start_date","end_date","category","status","preview_level","user_id") VALUES (34, NULL, 'A girl who pretends to be a boy because dragons and destiny', 'fantasy', 'Eon', '2017-09-20', NULL, 'fiction', 'active', 'published', NULL)
+  [1m[36m (6.3ms)[0m  [1mINSERT INTO "aprojects" ("id","owner_id","proj_description","genre","title","start_date","end_date","category","status","preview_level","user_id") VALUES (35, NULL, 'A girl who pretends to be a boy because dragons and destiny', 'science fiction', 'Ender''s Game', '2017-09-20', NULL, 'fiction', 'active', 'published', NULL)[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "aprojects" ("id","owner_id","proj_description","genre","title","start_date","end_date","category","status","preview_level","user_id") VALUES (36, NULL, 'A girl who pretends to be a boy because dragons and destiny', 'science fiction', 'Ender''s Shadow', '2017-09-20', NULL, 'fiction', 'active', 'published', NULL)
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "aprojects" ("id","owner_id","proj_description","genre","title","start_date","end_date","category","status","preview_level","user_id") VALUES (37, NULL, 'A girl who pretends to be a boy because dragons and destiny', 'fantasy', 'Eragon', '2016-09-21', '2017-09-21', 'fiction', 'finished', 'published', NULL)[0m
+  [1m[35m (0.0ms)[0m  INSERT INTO "aprojects" ("id","owner_id","proj_description","genre","title","start_date","end_date","category","status","preview_level","user_id") VALUES (38, NULL, 'A girl who pretends to be a boy because dragons and destiny', 'fantasy', 'The Princess Bride', '2015-09-21', '2016-09-21', 'fiction', 'finished', 'published', NULL)
+  [1m[36m (0.0ms)[0m  [1mINSERT INTO "aprojects" ("id","owner_id","proj_description","genre","title","start_date","end_date","category","status","preview_level","user_id") VALUES (39, NULL, 'A girl who pretends to be a boy because dragons and destiny', 'autobiography', 'My Life', '2017-09-20', NULL, 'nonfiction', 'active', 'published', NULL)[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "aprojects" ("id","owner_id","proj_description","genre","title","start_date","end_date","category","status","preview_level","user_id") VALUES (40, NULL, 'A girl who pretends to be a boy because dragons and destiny', 'fiction', 'Hunger Games', '2016-09-21', '2017-08-21', 'Book', 'finished', 'published', NULL)
+  [1m[36m (0.4ms)[0m  [1mDROP TABLE "projects"[0m
+  [1m[35m (0.2ms)[0m  CREATE TABLE "projects" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "owner_id" integer, "proj_description" varchar, "genre" varchar, "title" varchar, "start_date" date, "end_date" date, "category" varchar, "status" varchar DEFAULT 'active', "preview_level" varchar DEFAULT 'hidden') 
+  [1m[36m (0.1ms)[0m  [1mSELECT * FROM "aprojects"[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "projects" ("id","owner_id","proj_description","genre","title","start_date","end_date","category","status","preview_level") VALUES (34, NULL, 'A girl who pretends to be a boy because dragons and destiny', 'fantasy', 'Eon', '2017-09-20', NULL, 'fiction', 'active', 'published')
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "projects" ("id","owner_id","proj_description","genre","title","start_date","end_date","category","status","preview_level") VALUES (35, NULL, 'A girl who pretends to be a boy because dragons and destiny', 'science fiction', 'Ender''s Game', '2017-09-20', NULL, 'fiction', 'active', 'published')[0m
+  [1m[35m (0.0ms)[0m  INSERT INTO "projects" ("id","owner_id","proj_description","genre","title","start_date","end_date","category","status","preview_level") VALUES (36, NULL, 'A girl who pretends to be a boy because dragons and destiny', 'science fiction', 'Ender''s Shadow', '2017-09-20', NULL, 'fiction', 'active', 'published')
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "projects" ("id","owner_id","proj_description","genre","title","start_date","end_date","category","status","preview_level") VALUES (37, NULL, 'A girl who pretends to be a boy because dragons and destiny', 'fantasy', 'Eragon', '2016-09-21', '2017-09-21', 'fiction', 'finished', 'published')[0m
+  [1m[35m (0.0ms)[0m  INSERT INTO "projects" ("id","owner_id","proj_description","genre","title","start_date","end_date","category","status","preview_level") VALUES (38, NULL, 'A girl who pretends to be a boy because dragons and destiny', 'fantasy', 'The Princess Bride', '2015-09-21', '2016-09-21', 'fiction', 'finished', 'published')
+  [1m[36m (0.0ms)[0m  [1mINSERT INTO "projects" ("id","owner_id","proj_description","genre","title","start_date","end_date","category","status","preview_level") VALUES (39, NULL, 'A girl who pretends to be a boy because dragons and destiny', 'autobiography', 'My Life', '2017-09-20', NULL, 'nonfiction', 'active', 'published')[0m
+  [1m[35m (0.0ms)[0m  INSERT INTO "projects" ("id","owner_id","proj_description","genre","title","start_date","end_date","category","status","preview_level") VALUES (40, NULL, 'A girl who pretends to be a boy because dragons and destiny', 'fiction', 'Hunger Games', '2016-09-21', '2017-08-21', 'Book', 'finished', 'published')
+  [1m[36m (0.1ms)[0m  [1mDROP TABLE "aprojects"[0m
+  [1m[35mSQL (0.1ms)[0m  DELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?  [["version", "20170921060541"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateUserRoles (20170921042220)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  DROP TABLE "user_roles"
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?[0m  [["version", "20170921042220"]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUserRoles (20170921042220)
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mCREATE TABLE "user_roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "role_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20170921042220"]]
+  [1m[36m (2.0ms)[0m  [1mcommit transaction[0m
+Migrating to AddUserIdToProject (20170921060541)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "projects" ADD "user_id" integer[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20170921060541"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"

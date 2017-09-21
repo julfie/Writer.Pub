@@ -1,9 +1,9 @@
 module Contexts
     module Project_Roles
       def create_project_roles
-        @p21     = FactoryGirl.create(:project_role)
-        @pr2     = FactoryGirl.create(:project_role, project_id: @EndersGame, role_id: @writer, user_id: @jim, invite_num: 2)
-        @pr3     = FactoryGirl.create(:project_role, project_id: @EndersS, role_id: @artist, user_id: nil, invite_num: 3)
+        @pr1     = FactoryGirl.create(:project_role, project_id: @Eon.id, role_id: @editor.id, user_id: @jim.id)
+        @pr2     = FactoryGirl.create(:project_role, project_id: @EndersGame.id, role_id: @writer.id, user_id: @juliann.id, invite_num: 2)
+        @pr3     = FactoryGirl.create(:project_role, project_id: @EndersS.id, role_id: @artist.id, user_id: nil, invite_num: 3)
     end
       
       def destroy_project_roles
