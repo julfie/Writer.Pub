@@ -8,11 +8,9 @@ class ProjectRole < ActiveRecord::Base
 
     # scopes
     # -----------------------------
-    # scope :by_user,     -> {joins(:user).order('users.name')}
-    scope :by_user,     -> { order("user_id") }
-    # scope :by_role,     -> {joins(:role).order('roles.name')}
-    scope :by_role,     -> { order("role_id") }
-    scope :by_project,  -> { order("project_id") }
+    scope :by_user,     -> { joins(:user).order('users.last_name').order('users.first_name') }
+    scope :by_role,     -> { joins(:role).order('roles.name') }
+    scope :by_project,  -> { joins(:project).order('projects.title') }
     scope :filled,      -> { where("user_id iS NOT NULL") }
     scope :empty,       -> { where("user_id iS NULL") }
 
