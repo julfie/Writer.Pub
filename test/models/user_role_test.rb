@@ -13,5 +13,7 @@ class UserRoleTest < ActiveSupport::TestCase
 
     should validate_presence_of(:user_id)
     should validate_presence_of(:role_id)
+
+
 	
 end
