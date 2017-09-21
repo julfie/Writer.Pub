@@ -4,10 +4,10 @@ module Contexts
         @editor     = FactoryGirl.create(:role)
         @writer     = FactoryGirl.create(:role, name: "Writer", active: true)
         @artist     = FactoryGirl.create(:role, name: "Artist", active: false)
-    end
+      end
       
       def destroy_roles
-        @Editor.destroy
+        @editor.destroy
         @writer.destroy
         @artist.destroy
       end

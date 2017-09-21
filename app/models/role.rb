@@ -5,9 +5,7 @@ class Role < ActiveRecord::Base
 
     # scopes
     # -----------------------------
-    scope :alphabetical, -> { order("last_name, first_name") }
-    scope :active, -> { where(active: true) }
-    scope :inactive, -> { where(active: false) }
+    scope :alphabetical, -> { order("name") }
 
     # Validations
     # -----------------------------

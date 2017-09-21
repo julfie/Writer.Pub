@@ -1,6 +1,5 @@
 module Contexts
     module Project_Roles
-      # Context for projects (assumes contexts for domains, users)
       def create_project_roles
         @p21     = FactoryGirl.create(:project_role)
         @pr2     = FactoryGirl.create(:project_role, project_id: 2, role_id: 2, user_id: 2, invite_num: 2)

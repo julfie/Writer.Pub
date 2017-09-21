@@ -2,10 +2,12 @@
 require './test/sets/projects'
 require './test/sets/roles'
 require './test/sets/project_roles'
+require './test/sets/users'
 
 module Contexts
   # explicitly include all sets of contexts used for testing 
   include Contexts::Projects
   include Contexts::Roles
   include Contexts::Project_Roles
+  include Contexts::Users
 end

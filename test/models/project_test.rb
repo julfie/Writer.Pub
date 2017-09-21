@@ -5,18 +5,18 @@ class ProjectTest < ActiveSupport::TestCase
   should belong_to(:owner)
   should have_many(:project_roles)
   should have_many(:roles).through(:project_roles)
-  should have_many(:users).though(:project_roles)
+  should have_many(:users).through(:project_roles)
 
   # test validations with matchers
   should validate_presence_of(:title)
   should validate_presence_of(:status)
   should validate_presence_of(:genre)
   should validate_presence_of(:category)
-  should validate_uniqueness_of(:title).case_sensitive
+  should validate_uniqueness_of(:title)
   should validate_inclusion_of(:status).in_array(%w[active hiatus finished cancelled])
   should validate_inclusion_of(:preview_level).in_array(%w[hidden by_invitation preview published])
-  should validate_date :start_date, :on_or_before => :today
-  should validate_date :end_date, :after => :start_date, :after_message => "end date cannot be before start date", :allow_nil
+  # should validate_date :start_date, :on_or_before => :today
+  # should validate_date :end_date, :after => :start_date, :after_message => "end date cannot be before start date", :allow_nil
 
   # additional tests for status (not essential)
   should allow_value("active").for(:status)
@@ -33,7 +33,7 @@ class ProjectTest < ActiveSupport::TestCase
   # additional tests for date
   should allow_value(Date.current).for(:start_date)
   should allow_value(1.day.ago.to_date).for(:start_date)
-  should allow_value(1.day.from_now.to_date).for(:start_date)
+  should_not allow_value(1.day.from_now.to_date).for(:start_date)
   should_not allow_value("bad").for(:start_date)
   should_not allow_value(2).for(:start_date)
   should_not allow_value(3.14159).for(:start_date)
@@ -108,7 +108,7 @@ class ProjectTest < ActiveSupport::TestCase
       assert_equal @EndersGame.end_date, Date.today      
     end
 
-    should "correctly calculate length of project" do # TODO: P2
+    should "correctly calculate length of project" do
       # returns length of project as number of days
       # caculate start to end for complete/cancelled projects | start to today for active/hiatus projects
       assert_equal @EndersGame.time_length, 365
@@ -116,5 +116,7 @@ class ProjectTest < ActiveSupport::TestCase
       @Eon.start_date = 5.days.ago.to_date
       assert_equal @Eon.time_length, 5
     end
+
+  end
 
 end

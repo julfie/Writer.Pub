@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170908062913) do
+ActiveRecord::Schema.define(version: 20170920221117) do
 
   create_table "project_roles", force: :cascade do |t|
     t.integer "project_id"
@@ -35,6 +35,16 @@ ActiveRecord::Schema.define(version: 20170908062913) do
   create_table "roles", force: :cascade do |t|
     t.string  "name"
     t.boolean "active", default: true
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string  "first_name"
+    t.string  "last_name"
+    t.string  "email"
+    t.string  "password_digest"
+    t.string  "phone_number"
+    t.string  "username"
+    t.boolean "active",          default: true
   end
 
 end

@@ -16,6 +16,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+# Use a gem for handling pagination
+gem 'will_paginate'
+
+# Getting back the respond_to functionality
+gem 'responders', '~> 2.0'
+
+gem 'time_date_helpers'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -24,14 +32,18 @@ gem 'validates_timeliness', '~> 4.0'
 
 group :development, :test do
   gem 'simplecov' 
+  gem 'minitest'
+  gem 'minitest-rails'
+  gem 'minitest-reporters'
+  gem 'minitest-perf'
+  gem 'single_test' 
   gem 'byebug'
   gem 'shoulda' 
   gem 'shoulda-matchers' 
   gem 'factory_girl_rails' 
   gem 'mocha', require: false
-  # gem 'turn', '0.9.6'
   gem 'single_test' 
-  gem 'minitest'
+  gem 'nokogiri'
 end
 
 group :development do
@@ -40,5 +52,12 @@ group :development do
   gem 'spring'
   gem 'better_errors' 
   gem 'hirb' 
+  gem 'quiet_assets'
+  gem 'thin'
+  gem 'binding_of_caller'
+  gem 'meta_request'
+  gem 'wirble'
+  gem 'populator3'
+  gem 'faker'
 end
 
