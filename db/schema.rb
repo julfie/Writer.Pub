@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170920221117) do
+ActiveRecord::Schema.define(version: 20170921060541) do
+
+  create_table "messages", force: :cascade do |t|
+    t.string  "subject"
+    t.string  "body"
+    t.string  "invite_code"
+    t.integer "sender_id"
+    t.integer "recipient_id"
+    t.boolean "read_status",  default: false
+    t.date    "send_date"
+    t.boolean "flagged",      default: false
+    t.integer "user_id"
+  end
 
   create_table "project_roles", force: :cascade do |t|
     t.integer "project_id"
@@ -30,11 +42,16 @@ ActiveRecord::Schema.define(version: 20170920221117) do
     t.string  "category"
     t.string  "status",           default: "active"
     t.string  "preview_level",    default: "hidden"
+    t.integer "user_id"
   end
 
   create_table "roles", force: :cascade do |t|
     t.string  "name"
     t.boolean "active", default: true
+  end
+
+  create_table "user_roles", force: :cascade do |t|
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|

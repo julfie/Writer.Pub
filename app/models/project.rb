@@ -2,9 +2,9 @@ class Project < ActiveRecord::Base
 
     # Relationships
     # -----------------------------
-    belongs_to :owner, class_name: "User", foreign_key: "owner_id"
+    belongs_to :owner, class_name: "User", foreign_key: "user_id"
     has_many :project_roles
-    # has_many :project_roles, through: :project_roles TODO: delete?
+    has_many :roles, through: :project_roles
     has_many :users, through: :project_roles
 
     # scopes
@@ -14,9 +14,9 @@ class Project < ActiveRecord::Base
     scope :active,        -> { where("start_date <= ? and (end_date > ? or end_date is null)", Date.today, Date.today) }
     scope :completed,     -> { where("end_date <= ?", Date.today) }
     scope :for_title,     -> (title) { where("title LIKE ?", "#{title}%") }
-    scope :for_category,  -> (category) { where("category LIKE ?", "#{category}%") }
-    scope :for_genre,     -> (genre) { where("genre LIKE ?", "#{genre}%") }
-    scope :for_owner,     -> (owner) { where("owner LIKE ?", "#{owner}%") }
+    scope :for_owner,     -> (owner_id) { where("owner_id = ?", owner_id)}
+	scope :for_category,  -> (category) { where('category = ?', category) }
+	scope :for_genre,     -> (genre) { where('genre = ?', genre) }
 
     # Validations
     # -----------------------------
@@ -29,21 +29,24 @@ class Project < ActiveRecord::Base
     validates_inclusion_of :preview_level, in: %w[hidden by_invitation preview published], message: "is not included in list of accepted preview levels"
     validates_date :start_date, on_or_before:  lambda { Date.current }
     validates_date :end_date, after: :start_date, allow_blank: true
-    validate :owner_is_active, on: :create
     validate :is_unique_project?
 
     # Callbacks
     # -----------------------------
     before_save :is_ended?
+    # before_save :owner_is_active
 
     # Additional Methods
     # -----------------------------
     def time_length
-        return (self.end_date - self.start_date).to_i
+        unless self.end_date.nil?
+            return (self.end_date - self.start_date).to_i
+        end
+        return (Date.today - self.start_date).to_i
     end
 
     def cancel
-        self.set_end_date
+        self.end_date = Date.today
         self.status = "cancelled"
         self.save!
     end
@@ -57,15 +60,9 @@ class Project < ActiveRecord::Base
     end 
 
     def is_ended?
-        if self.status == "completed" && self.end_date.nil?
-            self.set_end_date = Date.today
+        if self.status == "finished" && self.end_date.nil?
+            self.end_date = Date.today
         end
-    # self.save!
     end
-
-    def set_end_date
-        self.end_date = Date.today
-        self.save!
-    end 
 
 end

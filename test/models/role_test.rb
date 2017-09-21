@@ -40,8 +40,12 @@ class RoleTest < ActiveSupport::TestCase
     end
 
     should "a role becomming inactive should not affect those who already have the role" do
+      create_project_roles
+
       @editor.make_inactive
-      assert_equal @albert.role, "Editor"
+      assert_equal @pr1.user, 6
+
+      destroy_project_roles
     end
 
   end

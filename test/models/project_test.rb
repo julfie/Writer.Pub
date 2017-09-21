@@ -37,6 +37,18 @@ class ProjectTest < ActiveSupport::TestCase
   should_not allow_value("bad").for(:start_date)
   should_not allow_value(2).for(:start_date)
   should_not allow_value(3.14159).for(:start_date)
+
+
+  # validating title...
+  should allow_value("Tell Me").for(:title)
+  
+    # validating category...
+    should allow_value("Music").for(:category)
+    should allow_value("Book").for(:category)
+  
+    # validating genre...
+    should allow_value("Electronic").for(:genre)
+    should allow_value("Fiction").for(:genre)
   
   context "Within context" do
     setup do 
@@ -50,43 +62,49 @@ class ProjectTest < ActiveSupport::TestCase
     end
 
     should "have a active user as its owner" do
-      assert_not_nil @eon.owner
-      assert @eon.owner.active
+      assert_not_nil @Eon.owner_id
+      ownr = Person.find(@Eon.owner_id)
+      assert ownr.active
+      assert @Eon.valid?
+
+      ownr.make_inactive
+      deny @Eon.valid?
     end
 
     should "have a scope to list projects in alphabetical order" do
-      assert_equal ["Ender's Game", "Ender's Shadow", "Eon", "Eragon", "My Life", "The Princess Bride"], Project.alphabetical.all.map(&:title)
+      assert_equal ["Ender's Game", "Ender's Shadow", "Eon", "Eragon", "Hunger Games", "My Life", "The Princess Bride"], Project.alphabetical.all.map(&:title)
     end
 
     should "have a scope to list projects chronologically" do
-      assert_equal ["The Princess Bride", "Eragon", "Ender's Game", "Ender's Shadow", "Eon"], Project.chronological.all.map(&:title)
+      assert_equal ["The Princess Bride", "Eragon", "Hunger Games", "Eon", "Ender's Game", "Ender's Shadow", "My Life"], Project.chronological.all.map(&:title)
     end
 
     should "have working active scope" do 
-      assert_equal ["Ender's Game", "Ender's Shadow", "Eon"], Project.active.all.map(&:title).sort
+      assert_equal ["Ender's Game", "Ender's Shadow", "Eon", "My Life"], Project.active.all.map(&:title).sort
     end
 
     should "have working completed scope" do 
-      assert_equal ["Eragon", "The Princess Bride"], Project.completed.all.map(&:title).sort      
+      assert_equal ["Eragon", "Hunger Games", "The Princess Bride"], Project.completed.all.map(&:title).sort      
     end
 
     should "have a scope to return all projects with a similar title" do
-      assert_equal ["Ender's Game", "Ender's Shadow"], Project.for_title("Ender").title.all.map(&:title).sort 
-      assert_equal ["Ender's Game", "Ender's Shadow"], Project.for_title("ende").title.all.map(&:title).sort 
+      assert_equal ["Ender's Game", "Ender's Shadow"], Project.for_title("Ender").all.map(&:title).sort 
+      assert_equal ["Ender's Game", "Ender's Shadow"], Project.for_title("ende").all.map(&:title).sort 
     end
 
     should "have a scope to search by category" do
-      assert_equal ["Ender's Game", "Ender's Shadow","Eragon", "The Princess Bride"], Project.for_category("fiction").title.all.map(&:title).sort 
-      assert_equal ["My Life"], Project.for_category("nonfiction").title.all.map(&:title).sort 
+      assert_equal ["My Life"], Project.for_category("nonfiction").all.map(&:title).sort 
+      assert_equal ["Hunger Games"], Project.for_category("Book").all.map(&:title).sort 
+      assert_equal ["Ender's Game", "Ender's Shadow", "Eon","Eragon", "The Princess Bride"], Project.for_category("fiction").all.map(&:title).sort 
     end 
 
     should "have a scope to search by genre" do
-      assert_equal ["Ender's Game", "Ender's Shadow"], Project.for_genre("science fiction").title.all.map(&:title).sort 
-      assert_equal ["Eon", "Eragon", "The Princess Bride"], Project.for_category("fantasy").title.all.map(&:title).sort 
+      assert_equal ["Ender's Game", "Ender's Shadow"], Project.for_genre("science fiction").all.map(&:title).sort 
+      assert_equal ["Eon", "Eragon", "The Princess Bride"], Project.for_genre("fantasy").all.map(&:title).sort 
     end
 
     should "have scope to search by owner" do
-      assert_equal @juliann, Project.for_owner(@juliann)
+      assert_equal [@EndersGame.title], Project.for_owner(@evan).all.map(&:title).sort 
     end
 
     should "verify project is not already in the system" do
@@ -104,17 +122,19 @@ class ProjectTest < ActiveSupport::TestCase
       # callback to check is cancelled or completed (set end date to today)
       @ml.cancel
       assert_equal @ml.end_date, Date.today
-      @EndersGame.status = "complete"
-      assert_equal @EndersGame.end_date, Date.today      
+      @EndersGame.status = "finished"
+      @EndersGame.save!
+      assert_equal Date.today, @EndersGame.end_date
     end
 
     should "correctly calculate length of project" do
       # returns length of project as number of days
       # caculate start to end for complete/cancelled projects | start to today for active/hiatus projects
-      assert_equal @EndersGame.time_length, 365
-      assert_equal @Eon.time_length, 0
+      assert_equal 334, @hunger_games.time_length
+      assert_equal 1, @EndersGame.time_length
+      assert_equal 1, @Eon.time_length
       @Eon.start_date = 5.days.ago.to_date
-      assert_equal @Eon.time_length, 5
+      assert_equal 5, @Eon.time_length
     end
 
   end

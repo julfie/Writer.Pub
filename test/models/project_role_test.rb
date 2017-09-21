@@ -7,18 +7,20 @@ class ProjectRoleTest < ActiveSupport::TestCase
   should belong_to(:project)
 
   # test validations with matchers
-  should validate_presence_of(:role)
+  should validate_presence_of(:role_id)
   should validate_presence_of(:invite_num)
   should validate_numericality_of(:invite_num).is_greater_than_or_equal_to(0)
 
   context "Within context" do
     setup do 
+      create_users
       create_projects
       create_roles
       create_project_roles
     end
     
     teardown do
+      destroy_users
       destroy_projects
       destroy_roles
       destroy_project_roles

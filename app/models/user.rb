@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-    include Activeable
+	include Activable
 	before_save :reformat_phone
 	has_secure_password
 
@@ -41,5 +41,4 @@ class User < ActiveRecord::Base
 		phone_number.gsub!(/[^0-9]/,"")
 		self.phone_number = phone_number
 	end
-
 end
