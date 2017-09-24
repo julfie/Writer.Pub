@@ -103,10 +103,7 @@ class ProjectTest < ActiveSupport::TestCase
     end
 
     should "have scope to search by owner" do
-      temp = FactoryGirl.build(:project, title:"project", owner_id:@juliann)
-      temp.save!
-      assert_equal ["project"], Project.for_owner(4).all.map(&:title).sort
-      temp.destroy
+      assert_equal 1, Project.for_owner(@evan.id).all.size
     end
 
     should "verify project is not already in the system" do

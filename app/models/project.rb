@@ -15,7 +15,7 @@ class Project < ActiveRecord::Base
     scope :active,        -> { where("start_date <= ? and (end_date > ? or end_date is null)", Date.today, Date.today) }
     scope :completed,     -> { where("end_date <= ?", Date.today) }
     scope :for_title,     -> (title) { where("title LIKE ?", "#{title}%") }
-    scope :for_owner,     -> (owner_id) { where("owner_id = ?", owner_id)}
+    scope :for_owner,     -> (owner_id) { joins(:owner).where("users.id = ?", owner_id)}
 	scope :for_category,  -> (category) { where('category = ?', category) }
     scope :for_genre,     -> (genre) { where('genre = ?', genre) }
 
