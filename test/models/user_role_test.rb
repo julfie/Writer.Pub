@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class UserRoleTest < ActiveSupport::TestCase
-  
+
 	#test relationships
 	should belong_to(:user)
 	should belong_to(:role)
