@@ -38,6 +38,8 @@ GEM
       tzinfo (~> 1.1)
     ansi (1.5.0)
     arel (6.0.4)
+    autoprefixer-rails (7.1.4.1)
+      execjs
     bcrypt (3.1.11)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -48,6 +50,7 @@ GEM
     builder (3.2.3)
     byebug (9.1.0)
     callsite (0.0.11)
+    cancancan (1.15.0)
     chronic (0.10.2)
     coderay (1.1.1)
     coffee-rails (4.1.1)
@@ -72,6 +75,8 @@ GEM
     faker (1.7.3)
       i18n (~> 0.5)
     ffi (1.9.18)
+    font-awesome-sass (4.7.0)
+      sass (>= 3.2)
     git-version-bump (0.15.1)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
@@ -89,6 +94,10 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
+    material_icons (2.2.1)
+      railties (>= 3.2)
+    materialize-sass (0.100.2)
+      sass (~> 3.3)
     meta_request (0.4.0)
       callsite (~> 0.0, >= 0.0.11)
       rack-contrib (~> 1.1)
@@ -176,6 +185,9 @@ GEM
     shoulda-context (1.2.2)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
+    simple_form (3.5.0)
+      actionpack (> 4, < 5.2)
+      activemodel (> 4, < 5.2)
     simplecov (0.14.1)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
@@ -224,16 +236,21 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bcrypt (~> 3.1.7)
+  autoprefixer-rails
+  bcrypt
   better_errors
   binding_of_caller
   byebug
+  cancancan (= 1.15.0)
   coffee-rails (~> 4.1.0)
   factory_girl_rails
   faker
+  font-awesome-sass
   hirb
   jbuilder (~> 2.0)
   jquery-rails
+  material_icons
+  materialize-sass
   meta_request
   minitest
   minitest-perf
@@ -249,6 +266,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   shoulda
   shoulda-matchers
+  simple_form
   simplecov
   single_test
   spring

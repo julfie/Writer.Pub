@@ -14,7 +14,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt'
 
 # Use a gem for handling pagination
 gem 'will_paginate'
@@ -29,6 +29,12 @@ gem 'time_date_helpers'
 
 # other gems
 gem 'validates_timeliness', '~> 4.0'
+gem 'cancancan', '1.15.0'
+gem 'simple_form'
+gem 'font-awesome-sass'
+gem "autoprefixer-rails"
+gem 'materialize-sass'
+gem 'material_icons'
 
 group :development, :test do
   gem 'simplecov' 
@@ -42,7 +48,6 @@ group :development, :test do
   gem 'shoulda-matchers' 
   gem 'factory_girl_rails' 
   gem 'mocha', require: false
-  gem 'single_test' 
   gem 'nokogiri'
 end
 
