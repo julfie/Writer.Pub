@@ -17,7 +17,7 @@
     <div class="col s4 m3 l2">
       <ul class="tabs">
         <li class="tab">
-          <a href="#Basics">BASICS</a>
+          <a href="#Basics" class="active">BASICS</a>
         </li>
         <li class="tab">
           <a href="#Members">MEMBERS</a>
@@ -59,7 +59,12 @@
           
           <div class="form-actions row">
             <div class="waves-effect waves-light btn right">  
-              <a href="#Settings">NEXT</a>
+              <a onclick="
+                          $(document).ready(function(){
+                            $('ul.tabs').tabs('select_tab', 'Members');
+                          });">
+                NEXT
+              </a>
             </div>
             <div class="waves-effect waves-light btn left">
               <%= link_to 'Back', home_path %>
@@ -70,7 +75,20 @@
         <!-- MEMBERSS TAB -->
         <div id="Members" class="tab-content">
           <div class="waves-effect waves-light btn right">  
-            <a href="#Settings">NEXT</a>
+            <a onclick="
+                        $(document).ready(function(){
+                          $('ul.tabs').tabs('select_tab', 'Settings');
+                        });">
+              SKIP
+            </a>
+          </div>
+          <div class="waves-effect waves-light btn left">  
+            <a onclick="
+                        $(document).ready(function(){
+                          $('ul.tabs').tabs('select_tab', 'Basics');
+                        });">
+              BACK
+            </a>
           </div>
         </div>
         
@@ -94,7 +112,12 @@
                 <%= f.submit nil %>
               </div>
               <div class="waves-effect waves-light btn left">
-                <%= link_to 'Back', projects_path %>
+                <a onclick="
+                          $(document).ready(function(){
+                            $('ul.tabs').tabs('select_tab', 'Basics');
+                          });">
+                  BACK
+                </a>
               </div>
             </div>
           </form>
