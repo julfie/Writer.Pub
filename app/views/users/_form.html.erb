@@ -1,17 +1,20 @@
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<%= simple_form_for @user, :html => { :class => 'form-horizontal' } do |f| %>
+<fieldset>
+  <legend><%= controller.action_name.capitalize %> User</legend>
 
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.input :f_name, prompt: "First Name" %>
+  <%= f.input :l_name, prompt: "Last Name" %>
+  <%= f.input :email, prompt: "Email" %>
+  <%= f.input :phone, prompt: "Phone Number" %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <%= f.input :password, prompt: "Create a Password" %>
+  <%= f.input :password_confirmation, prompt: "Confirm Password" %>
+
+  <%= f.input :active%>
+
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'button radius' %>
+    <%= link_to 'Cancel',users_path, :class => 'button alert radius' %>
   </div>
-<% end %>
+</fieldset>

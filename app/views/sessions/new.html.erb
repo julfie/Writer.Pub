@@ -1,22 +1,30 @@
-<h3>Log In</h3>
 <div class="container">
-  <div class="small-8 columns">
+
+  <h3>Log In</h3>
+  <div class="divider"></div>
+  <br><br>
+
+  <div class="section">
     <%= form_tag sessions_path do %>
-      <div class="row">
-        <div class="input-field col s12">
-            <%= text_field_tag :email, params[:email] %>
-          <label for="email">Email</label>
+
+
+
+      <!-- form -->
+      <div class="control-group">
+        <%= label_tag :email %>
+        <div class="controls">
+          <%= text_field_tag :email, params[:email] %>
         </div>
       </div>
 
-      <div class="row">
-        <div class="input-field col s12">
-            <%= password_field_tag :password%>
-          <label for="password">Password</label>
+      <div class="control-group">
+        <%= label_tag :password %>
+        <div class="controls">
+          <%= password_field_tag :password %>
         </div>
       </div>
-
-      <div class="waves-effect waves-light btn right"><%= link_to "New User", new_user_path %></div>
+      
+      <div class="waves-effect waves-light btn left"><%= link_to "New User", new_user_path %></div>
       <div class="waves-effect waves-light btn right"><%= submit_tag "Log In" %></div>
     <% end %>
   </div>

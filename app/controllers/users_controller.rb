@@ -1,83 +1,61 @@
 class UsersController < ApplicationController
-    before_action :set_user, only: [:show, :edit, :update, :destroy]
-  
-    # GET /users
-    # GET /users.json
-    def index
-      @users = User.all
-      @artists = @users.user_role.map { |ur| ur.role_id == @artists }
-      @mixer = @users.user_role.map { |ur| ur.role_id == @mixer }
-      @producer = @users.user_role.map { |ur| ur.role_id == @producer }
-      @instrumentalist = @users.user_role.map { |ur| ur.role_id == @instrumentalist }
-  
-    end
-  
-    # GET /users/1
-    # GET /users/1.json
-    def show
-      @projects_roles = User.projects_roles
-      @projects = User.projects_roles.map { |pr| pr.projects  }
-      #@messages = 
-  
-    end
-  
-    # GET /users/new
-    def new
-      @user = User.new
-    end
-  
-    # GET /users/1/edit
-    def edit
-    end
-  
-    # POST /users
-    # POST /users.json
-    def create
-      @user = User.new(user_params)
-  
-      respond_to do |format|
-        if @user.save
-          format.html { redirect_to @user, notice: 'User was successfully created.' }
-          format.json { render :show, status: :created, location: @user }
-        else
-          format.html { render :new }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
-        end
-      end
-    end
-  
-    # PATCH/PUT /users/1
-    # PATCH/PUT /users/1.json
-    def update
-      respond_to do |format|
-        if @user.update(user_params)
-          format.html { redirect_to @user, notice: 'User was successfully updated.' }
-          format.json { render :show, status: :ok, location: @user }
-        else
-          format.html { render :edit }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
-        end
-      end
-    end
-  
-    # DELETE /users/1
-    # DELETE /users/1.json
-    def destroy
-      @user.destroy
-      respond_to do |format|
-        format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-        format.json { head :no_content }
-      end
-    end
-  
-    private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_user
-        @user = User.find(params[:id])
-      end
-  
-      # Never trust parameters from the scary internet, only allow the white list through.
-      def user_params
-        params.require(:user).permit(:f_name, :l_name, :email, :username, :active, :phone)
-      end
-  end
+  # authorize_resource
+  before_action :check_login, except: [:new, :create]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+
+	def index
+		@users = User.alphabetical.paginate(:page => params[:page]).per_page(7)
+	end
+
+	def show
+		@user_projects = @user.projects.active.chronological
+		#@project_roles
+		#@user_roles
+    #@messages
+	end
+
+	def new
+		@user = User.new
+	end
+
+	def edit
+	end
+
+	def create
+    @user = User.new(user_params)
+    @user.active = true
+
+		if @user.save
+			session[:user_id] = @user.id
+			redirect_to home_path, notice: "Thank you for signing up!"
+		else
+			flash[:error] = "This user could not be created."
+			render "new"
+		end
+	end
+
+	def update
+		if @user.update_attributes(user_params)
+			flash[:notice] = "#{@user.name} is updated."
+			redirect_to @user
+		else
+			render :action => 'edit'
+		end
+	end
+
+	def destroy
+		@user.destroy
+		flash[:notice] = "Successfully removed #{@user.name} from Users."
+		redirect_to users_url
+	end
+
+	private
+
+	def set_user
+		@user = User.find(params[:id])
+	end
+
+	def user_params
+		params.fetch(:user, {}).permit(:first_name, :last_name, :username, :email, :phone_number, :password, :password_confirmation)
+	end
+end
