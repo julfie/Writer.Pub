@@ -1,0 +1,41 @@
+<!-- link to home -->
+<li>
+  <%= link_to(home_path) do %>
+    <h5>HOME</h5>
+  <% end %>
+</li>
+
+<!-- options for items -->
+<li>
+  <%= link_to(about_path) do %>
+    <h5>ABOUT</h5>
+  <% end %>
+</li>
+
+<!-- options for Contact -->
+<li>
+  <%= link_to(contact_path) do %>
+    <h5>ABOUT</h5>
+  <% end %>
+</li>
+
+<li>
+  <% if can? :create, Project %>
+    <%= link_to(new_project_path) do %>
+      <h5>NEW PROJECT</h5>
+    <% end %>
+  <% end %>
+</li>
+
+<!-- login/accont options -->
+<li>
+  <% if logged_in? %>
+    <%= link_to(logout_path) do %>
+      <h5>[<%= current_user.proper_name %>:<%= current_user.role %>]</h5>
+    <% end %>
+  <% else %>
+    <%= link_to(login_path) do %>
+      <h5>LOGIN</h5>
+    <% end %>
+  <% end %>
+</li>
