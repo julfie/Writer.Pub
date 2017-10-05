@@ -1,0 +1,28 @@
+
+<a href="#" class="accordion-title">1. Project <span>Step 1 of 2</span></a>
+<div id="school-form">
+  <div class="row">
+    <div class="small-12 columns">
+
+      <%= simple_form_for Project.new, remote: true  do |f| %>
+        <%= f.input :title, input_html: { placeholder:"Name" }, label: false %>
+        <%= f.input :category, input_html: { placeholder:"Street 1" }, label: false %>
+        <%= f.input :genre, input_html: { placeholder:"Street 2" }, label: false %>
+        <%= f.input :proj_description, input_html: { placeholder:"City" }, label: false %>
+        <%= submit_tag "Submit and Continue", class: 'secondary button expanded' %>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+
+<a href="#" class="accordion-title">2. Account <span>Step 2 of 2</span></a>
+<div id="user-form">
+  <div class="row">
+    <div class="small-12 column">
+
+      
+
+    </div>
+  </div>
+</div>

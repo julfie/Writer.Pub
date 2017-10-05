@@ -1,0 +1,15 @@
+
+<!-- link to login -->
+<% if !logged_in? %>
+    <%= link_to(login_path, class: 'login', remote: true) do %> 
+        <a href="#modal1" class="waves-effect waves-light modal-trigger"><h5>LOGIN</h5></a>
+    <% end %>
+    <div id="modal1" class="modal">            
+        <%= render :partial => "partials/login/login_signup" %>
+        <
+<% end %>
+
+<!-- options for logged in user -->
+<% if logged_in? %>
+    <%= link_to current_user.first_name, user_path(current_user), class: 'login' %> :: <%= link_to "Logout", logout_path, class: 'login' %>
+<% end %>

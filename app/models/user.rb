@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
 	scope :active, -> { where(active: true) }
 	scope :inactive, -> { where(active: false) }
 	scope :search, ->(term) { where('first_name LIKE lower(?) OR last_name LIKE lower(?)', "#{term.downcase}%", "#{term.downcase}%") }
+	scope :for_username, ->(usrname) { where('username LIKE lower(?)', "#{usrname}%")} # TODO: write test for this
 
 	# validations
 	validates_presence_of :first_name
@@ -40,5 +41,10 @@ class User < ActiveRecord::Base
 		phone_number = self.phone_number.to_s
 		phone_number.gsub!(/[^0-9]/,"")
 		self.phone_number = phone_number
+	end
+
+	# login by email address
+	def self.authenticate(email, password)
+		find_by_email(email).try(:authenticate, password)
 	end
 end
