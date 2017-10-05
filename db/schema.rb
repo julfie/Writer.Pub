@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20171005040815) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.integer "owner_id"
+    t.integer "user_id"
     t.string  "proj_description"
     t.string  "genre"
     t.string  "title"
@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 20171005040815) do
     t.string  "category"
     t.string  "status",           default: "active"
     t.string  "preview_level",    default: "hidden"
-    t.integer "user_id"
   end
 
   create_table "roles", force: :cascade do |t|
