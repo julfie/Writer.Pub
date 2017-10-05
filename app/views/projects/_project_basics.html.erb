@@ -1,36 +1,32 @@
-<div class="center">
-    <form class="col s12">
-        
-        <div class="row">
-            <div class="input-field col s12">
-                <%= text_field_tag(:title, params[:title]) %>
-                <label for="title">Title</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <%= text_field_tag(:category, params[:category], :'id' => "autocomplete-input", :'class' => "autocomplete") %>
-                <label for="category">Category</label>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="input-field col s12">
-                <%= text_field_tag(:genre, params[:genre]) %>
-                <label for="genre">Genre</label>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="input-field col s12">
-                <%= text_area_tag(:proj_description, params[:proj_description], class:"materialize-textarea", :'data-length' => 200) %>
-                <label for="proj_description">Project Description</label>
-            </div>
-        </div>
-        
-        <div class="waves-effect waves-light btn right">
-            <%= submit_tag "Submit" %>
-        </div>
-        
-    </form>
+<div class="row">
+    <div class="input-field col s12">
+        <%= f.input :title, :params => :title %>
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field col s12">
+        <%= f.input :category, :params => :category %>
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field col s12">
+        <%= f.input :genre, :params => :genre %>
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field col s12">
+        <%= f.input :proj_description, class:"materialize-textarea", :'data-length' => 200 %>
+    </div>
+</div>
+
+<div class="form-actions row">
+    <div class="waves-effect waves-light btn right">  
+        <a href="#Settings">NEXT</a>
+    </div>
+    <div class="waves-effect waves-light btn left">
+        <%= link_to 'Back', home_path %>
+    </div>
 </div>

@@ -1,4 +1,4 @@
-<%= form_for(@project) do |f| %>
+<%= simple_form_for @project, :html => { :class => 'form-horizontal' } do |f| %>
 <!-- error handling -->
 <% if @project.errors.any? %>
 <div id="error_explanation">
@@ -29,21 +29,77 @@
     </div>
     
     <div class="col s8 m9 l6">
-      <!-- BASICS TAB -->
-      <div id="Basics" class="tab-content">
-        <%= render 'project_basics' %>
-      </div>
-      
-      <!-- MEMBERSS TAB -->
-      <div id="Members" class="tab-content">
-        <!-- <%= render  "project_roles/form" %> -->
-      </div>
-      
-      <!-- SETTINGS TAB -->
-      <div id="Settings" class="tab-content">
-        <%= render 'project_settings' %>
-      </div>
-      
+      <form class="col s12">
+        <!-- BASICS TAB -->
+        <div id="Basics" class="tab-content">
+          
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.input :title, :params => :title %>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.input :category, :params => :category %>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.input :genre, :params => :genre %>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.input :proj_description, class:"materialize-textarea", :'data-length' => 200 %>
+            </div>
+          </div>
+          
+          <div class="form-actions row">
+            <div class="waves-effect waves-light btn right">  
+              <a href="#Settings">NEXT</a>
+            </div>
+            <div class="waves-effect waves-light btn left">
+              <%= link_to 'Back', home_path %>
+            </div>
+          </div>
+        </div>
+        
+        <!-- MEMBERSS TAB -->
+        <div id="Members" class="tab-content">
+          <div class="waves-effect waves-light btn right">  
+            <a href="#Settings">NEXT</a>
+          </div>
+        </div>
+        
+        <!-- SETTINGS TAB -->
+        <div id="Settings" class="tab-content">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <%= f.input :preview_level %>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="input-field col s12">
+                <%= f.input :status %>
+              </div>
+            </div>
+            
+            <div class="form-actions row">
+              <div class="waves-effect waves-light btn right">  
+                <%= f.submit nil %>
+              </div>
+              <div class="waves-effect waves-light btn left">
+                <%= link_to 'Back', projects_path %>
+              </div>
+            </div>
+          </form>
+        </div>
+      </form>
     </div>
   </div>
 </div>
