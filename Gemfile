@@ -15,6 +15,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
+gem 'bcrypt-ruby'
 
 # Use a gem for handling pagination
 gem 'will_paginate'
