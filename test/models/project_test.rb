@@ -129,7 +129,7 @@ class ProjectTest < ActiveSupport::TestCase
     should "correctly calculate length of project" do
       # returns length of project as number of days
       # caculate start to end for complete/cancelled projects | start to today for active/hiatus projects
-      assert_equal 334, @hunger_games.time_length
+      assert_equal 335, @hunger_games.time_length
       assert_equal 1, @EndersGame.time_length
       assert_equal 1, @Eon.time_length
       @Eon.start_date = 5.days.ago.to_date
