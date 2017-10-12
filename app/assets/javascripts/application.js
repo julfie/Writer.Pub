@@ -12,5 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery_nested_form
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function(){
+    $('.carousel.carousel-slider').carousel({fullWidth: true});
+  });
+

@@ -8,6 +8,11 @@ class CreateUsers < ActiveRecord::Migration
       t.string :phone_number
       t.string :username
       t.boolean :active, default: true
+      t.string :provider
+      t.string :uid
+      # add_index :users, :provider
+      # add_index :users, :uid
+      # add_index :users, [:provider, :uid], unique: true
 
 #      t.timestamps null: false
     end

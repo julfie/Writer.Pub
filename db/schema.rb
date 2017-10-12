@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(version: 20171005040815) do
     t.string  "phone_number"
     t.string  "username"
     t.boolean "active",          default: true
+    t.string  "provider"
+    t.string  "uid"
   end
 
 end

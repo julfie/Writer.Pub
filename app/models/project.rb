@@ -1,11 +1,12 @@
 class Project < ActiveRecord::Base
-
     # Relationships
     # -----------------------------
     belongs_to :owner, class_name: "User", foreign_key: "user_id"
     has_many :project_roles
     has_many :roles, through: :project_roles
     has_many :users, through: :project_roles
+
+    accepts_nested_attributes_for :project_roles, reject_if: lambda { |project_role| project_role[:user_id].blank? }, allow_destroy: true        
 
     # scopes
     # -----------------------------

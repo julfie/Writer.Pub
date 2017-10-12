@@ -14,6 +14,7 @@ class ProjectsController < ApplicationController
 
     def new
         @project = Project.new
+        @project.project_roles.build
     end
 
     def edit
@@ -57,7 +58,7 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-        params.fetch(:project, {}).permit(:proj_description, :genre, :title, :category, :preview_level, :status)
+        params.fetch(:project, {}).permit(:proj_description, :genre, :title, :category, :preview_level, :status, project_roles: [:role_id, :user_id, :invite_num])
     end
 
 end

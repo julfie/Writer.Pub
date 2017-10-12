@@ -17,6 +17,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt'
 gem 'bcrypt-ruby'
 
+# o auth
+gem 'omniauth-facebook'
+
 # Use a gem for handling pagination
 gem 'will_paginate'
 
@@ -32,6 +35,7 @@ gem 'time_date_helpers'
 gem 'validates_timeliness', '~> 4.0'
 gem 'cancancan', '1.15.0'
 gem 'simple_form'
+gem "nested_form"
 gem 'font-awesome-sass'
 gem "autoprefixer-rails"
 gem 'materialize-sass'

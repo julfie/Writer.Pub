@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class ProjectTest < ActiveSupport::TestCase
+  should accept_nested_attributes_for(:project_roles).allow_destroy(true)
+  
   # test relationships
   should belong_to(:owner)
   should have_many(:project_roles)

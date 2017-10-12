@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  resources :project_roles
   # Routes for main resources
   resources :projects
   resources :users
   resources :sessions
+
+  get '/auth/:provider/callback', to: 'sessions#create'
   
   # Authentication routes
   get 'user/edit' => 'users#edit', as: :edit_current_user

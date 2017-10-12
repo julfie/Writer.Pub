@@ -1,12 +1,60 @@
-<nav>
+<nav class="nav-extended">
   <div class="nav-wrapper"> 
-    <%= link_to image_tag('logo.png'), home_path, class: 'brand-logo' %>
+    <%= link_to image_tag('logo.png'), home_path, class: 'brand-logo center' %>
     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-    <ul id="nav-mobile", class='right hide-on-small-only valign'>
-      <%= render :partial => 'partials/nav/base_nav' %>
+
+    <ul id="nav-mobile" class="hide-on-med-and-down">
+      <div class="left">
+          <%= render :partial => 'partials/nav/base_nav_left' %>
+      </div>
+      <div class="right">
+          <%= render :partial => 'partials/nav/base_nav_right' %>
+      </div>
     </ul>
+
     <ul class="side-nav" id="mobile-demo">
-      <%= render :partial => 'partials/nav/base_nav' %>        
+      <!-- options for items -->
+      <li>
+        <%= link_to(about_path) do %>
+        <h5>CATEGORIES</h5>
+        <% end %>
+      </li>
+      
+      <!-- options for Contact -->
+      <li>
+        <%= link_to(about_path) do %>
+        <h5>READ</h5>
+        <% end %>
+      </li>
+      
+      <li>
+        <%= link_to(new_project_path) do %>
+        <h5>WRITE</h5>
+        <% end %>
+      </li>
+      
+      <!-- library -->
+      <li>
+        <% if logged_in? %>
+        <%= link_to(about_path) do %>
+        <h5>BOOKSHELF</h5>
+        <% end %>
+        <% end %>
+      </li>
+      
+      <!-- login/accont options -->
+      <li>
+        <% if logged_in? %>
+        <%= link_to(logout_path) do %>
+        <h5>LOGOUT</h5>
+        <% end %>
+        <% else %>
+        <%= link_to(login_path) do %>
+        <h5>LOGIN</h5>
+        <% end %>
+        <% end %>
+      </li>
+      
     </ul>
   </div>
 </nav>
