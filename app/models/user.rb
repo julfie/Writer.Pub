@@ -48,13 +48,14 @@ class User < ActiveRecord::Base
 		find_by_email(email).try(:authenticate, password)
 	end
 	
-	def from_omniauth(auth_hash)
-		user = find_or_create_by(uid: auth_hash['uid'], provider: auth_hash['provider'])
-		user.name = auth_hash['info']['name']
-		user.location = auth_hash['info']['location']
-		user.image_url = auth_hash['info']['image']
-		user.url = auth_hash['info']['urls'][user.provider.capitalize]
-		user.save!
-		user
+	def self.from_omniauth(auth)
+		where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
+			user.provider = auth.provider
+			user.uid = auth.uid
+			user.name = auth.info.name
+			user.oauth_token = auth.credentials.token
+			user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+			user.save!
+		end
 	end
 end

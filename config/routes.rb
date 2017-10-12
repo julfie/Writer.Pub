@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   resources :users
   resources :sessions
 
-  get '/auth/:provider/callback', to: 'sessions#create'
+  get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/failure', to: redirect('/')
   
   # Authentication routes
   get 'user/edit' => 'users#edit', as: :edit_current_user

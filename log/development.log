@@ -40729,3 +40729,574 @@ Processing by ProjectsController#new as HTML
   Rendered partials/_home_slider.html.erb (1.8ms)
   Rendered partials/_footer.html.erb (0.4ms)
 Completed 200 OK in 93ms (Views: 92.0ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.6ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateProjectRoles (20170906133914)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "project_roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "project_id" integer, "role_id" integer, "user_id" integer, "invite_num" integer) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170906133914"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+Migrating to CreateProjects (20170906140551)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "projects" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "proj_description" varchar, "genre" varchar, "title" varchar, "start_date" date, "end_date" date, "category" varchar, "status" varchar DEFAULT 'active', "preview_level" varchar DEFAULT 'hidden') 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170906140551"]]
+  [1m[35m (0.5ms)[0m  commit transaction
+Migrating to CreateRoles (20170908062913)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  CREATE TABLE "roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "active" boolean DEFAULT 't') 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170908062913"]]
+  [1m[35m (0.4ms)[0m  commit transaction
+Migrating to CreateUsers (20170920221117)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "first_name" varchar, "last_name" varchar, "email" varchar, "password_digest" varchar, "phone_number" varchar, "username" varchar, "active" boolean DEFAULT 't', "provider" varchar, "uid" varchar, "oauth_token" varchar, "oauth_expires_at" datetime) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170920221117"]]
+  [1m[35m (0.5ms)[0m  commit transaction
+Migrating to CreateMessages (20170921032107)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "messages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "subject" varchar, "body" varchar, "invite_code" varchar, "sender_id" integer, "recipient_id" integer, "read_status" boolean DEFAULT 'f', "send_date" date, "flagged" boolean DEFAULT 'f', "user_id" integer) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170921032107"]]
+  [1m[35m (0.5ms)[0m  commit transaction
+Migrating to CreateUserRoles (20170921042220)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "user_roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "role_id" integer) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170921042220"]]
+  [1m[35m (0.4ms)[0m  commit transaction
+Migrating to Admin (20171005040815)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'admin@example.com' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'admin' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("first_name", "last_name", "username", "email", "phone_number", "password_digest") VALUES (?, ?, ?, ?, ?, ?)  [["first_name", "Admin"], ["last_name", "Admin"], ["username", "admin"], ["email", "admin@example.com"], ["phone_number", "4104400887"], ["password_digest", "$2a$10$Mx59ZNUtYj6ZL9cDILJHk.ywU.dLrYCkDNHwzonqfMvN8eBpSgbVi"]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171005040815"]]
+  [1m[35m (0.5ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+
+
+Started GET "/projects/new" for ::1 at 2017-10-12 03:10:58 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ProjectsController#new as HTML
+  Rendered projects/_project_roles_fields.html.erb (10.3ms)
+  Rendered projects/_project_roles_fields.html.erb (4.5ms)
+  Rendered projects/_project_tabbed_form.html.erb (470.2ms)
+  Rendered projects/new.html.erb within layouts/application (476.0ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.7ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.6ms)
+  Rendered partials/_nav.html.erb (7.1ms)
+  Rendered partials/_flash.html.erb (0.4ms)
+  Rendered partials/_home_slider.html.erb (1.6ms)
+  Rendered partials/_footer.html.erb (0.6ms)
+Completed 200 OK in 861ms (Views: 802.9ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/login" for ::1 at 2017-10-12 03:11:03 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.9ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.1ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.1ms)
+  Rendered partials/_nav.html.erb (3.6ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (0.9ms)
+  Rendered partials/_footer.html.erb (0.4ms)
+Completed 200 OK in 64ms (Views: 63.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2017-10-12 03:11:21 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (0.4ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.2ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.1ms)
+  Rendered partials/_nav.html.erb (4.5ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (0.9ms)
+  Rendered partials/_footer.html.erb (0.3ms)
+Completed 200 OK in 40ms (Views: 39.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2017-10-12 03:11:36 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (0.5ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.1ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.1ms)
+  Rendered partials/_nav.html.erb (3.8ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (0.9ms)
+  Rendered partials/_footer.html.erb (0.2ms)
+Completed 200 OK in 44ms (Views: 43.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/auth/facebook" for ::1 at 2017-10-12 03:11:39 -0400
+
+ActionController::RoutingError (No route matches [GET] "/auth/facebook"):
+  actionpack (4.2.7) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  rack-contrib (1.4.0) lib/rack/contrib/response_headers.rb:17:in `call'
+  meta_request (0.4.0) lib/meta_request/middlewares/headers.rb:16:in `call'
+  web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+  actionpack (4.2.7) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.7) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.7) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.7) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.7) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.7) lib/rails/rack/logger.rb:20:in `call'
+  quiet_assets (1.1.0) lib/quiet_assets.rb:27:in `call_with_quiet_assets'
+  actionpack (4.2.7) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.8) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.8) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.7) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.8) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.7) lib/action_dispatch/middleware/static.rb:120:in `call'
+  rack (1.6.8) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.7) lib/rails/engine.rb:518:in `call'
+  railties (4.2.7) lib/rails/application.rb:165:in `call'
+  rack (1.6.8) lib/rack/content_length.rb:15:in `call'
+  thin (1.7.0) lib/thin/connection.rb:86:in `block in pre_process'
+  thin (1.7.0) lib/thin/connection.rb:84:in `catch'
+  thin (1.7.0) lib/thin/connection.rb:84:in `pre_process'
+  thin (1.7.0) lib/thin/connection.rb:53:in `process'
+  thin (1.7.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.2.3) lib/eventmachine.rb:194:in `run_machine'
+  eventmachine (1.2.3) lib/eventmachine.rb:194:in `run'
+  thin (1.7.0) lib/thin/backends/base.rb:73:in `start'
+  thin (1.7.0) lib/thin/server.rb:162:in `start'
+  rack (1.6.8) lib/rack/handler/thin.rb:19:in `run'
+  rack (1.6.8) lib/rack/server.rb:287:in `start'
+  railties (4.2.7) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.7) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.7) lib/rails/commands/commands_tasks.rb:75:in `tap'
+  railties (4.2.7) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.7) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.7) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:9:in `require'
+  bin/rails:9:in `<top (required)>'
+  spring (2.0.2) lib/spring/client/rails.rb:28:in `load'
+  spring (2.0.2) lib/spring/client/rails.rb:28:in `call'
+  spring (2.0.2) lib/spring/client/command.rb:7:in `call'
+  spring (2.0.2) lib/spring/client.rb:30:in `run'
+  spring (2.0.2) bin/spring:49:in `<top (required)>'
+  spring (2.0.2) lib/spring/binstub.rb:31:in `load'
+  spring (2.0.2) lib/spring/binstub.rb:31:in `<top (required)>'
+  bin/spring:15:in `require'
+  bin/spring:15:in `<top (required)>'
+  bin/rails:3:in `load'
+  bin/rails:3:in `<main>'
+
+
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/actionpack-4.2.7/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.9ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/actionpack-4.2.7/lib/action_dispatch/middleware/templates/routes/_route.html.erb (2.7ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/actionpack-4.2.7/lib/action_dispatch/middleware/templates/routes/_table.html.erb (3.6ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/actionpack-4.2.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.1ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/actionpack-4.2.7/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (137.7ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.6ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.7ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (51.4ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.5ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.8ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (113.5ms)
+
+
+Started GET "/login" for ::1 at 2017-10-12 03:11:43 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.0ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.2ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.2ms)
+  Rendered partials/_nav.html.erb (5.6ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (1.3ms)
+  Rendered partials/_footer.html.erb (0.3ms)
+Completed 200 OK in 52ms (Views: 51.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2017-10-12 03:12:35 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.7ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.2ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.3ms)
+  Rendered partials/_nav.html.erb (6.0ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (1.2ms)
+  Rendered partials/_footer.html.erb (0.3ms)
+Completed 200 OK in 60ms (Views: 59.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/auth/google_oauth2" for ::1 at 2017-10-12 03:12:39 -0400
+(google_oauth2) Request phase initiated.
+
+
+Started GET "/auth/google_oauth2" for ::1 at 2017-10-12 03:12:39 -0400
+(google_oauth2) Request phase initiated.
+
+
+Started GET "/login" for ::1 at 2017-10-12 03:14:03 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.8ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.1ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.2ms)
+  Rendered partials/_nav.html.erb (5.6ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (1.3ms)
+  Rendered partials/_footer.html.erb (0.3ms)
+Completed 200 OK in 84ms (Views: 83.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/auth/facebook" for ::1 at 2017-10-12 03:14:09 -0400
+
+ActionController::RoutingError (No route matches [GET] "/auth/facebook"):
+  actionpack (4.2.7) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  rack-contrib (1.4.0) lib/rack/contrib/response_headers.rb:17:in `call'
+  meta_request (0.4.0) lib/meta_request/middlewares/headers.rb:16:in `call'
+  web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+  actionpack (4.2.7) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.7) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.7) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.7) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.7) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.7) lib/rails/rack/logger.rb:20:in `call'
+  quiet_assets (1.1.0) lib/quiet_assets.rb:27:in `call_with_quiet_assets'
+  actionpack (4.2.7) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.8) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.8) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.7) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.8) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.7) lib/action_dispatch/middleware/static.rb:120:in `call'
+  rack (1.6.8) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.7) lib/rails/engine.rb:518:in `call'
+  railties (4.2.7) lib/rails/application.rb:165:in `call'
+  rack (1.6.8) lib/rack/content_length.rb:15:in `call'
+  thin (1.7.0) lib/thin/connection.rb:86:in `block in pre_process'
+  thin (1.7.0) lib/thin/connection.rb:84:in `catch'
+  thin (1.7.0) lib/thin/connection.rb:84:in `pre_process'
+  thin (1.7.0) lib/thin/connection.rb:53:in `process'
+  thin (1.7.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.2.3) lib/eventmachine.rb:194:in `run_machine'
+  eventmachine (1.2.3) lib/eventmachine.rb:194:in `run'
+  thin (1.7.0) lib/thin/backends/base.rb:73:in `start'
+  thin (1.7.0) lib/thin/server.rb:162:in `start'
+  rack (1.6.8) lib/rack/handler/thin.rb:19:in `run'
+  rack (1.6.8) lib/rack/server.rb:287:in `start'
+  railties (4.2.7) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.7) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.7) lib/rails/commands/commands_tasks.rb:75:in `tap'
+  railties (4.2.7) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.7) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.7) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:9:in `require'
+  bin/rails:9:in `<top (required)>'
+  spring (2.0.2) lib/spring/client/rails.rb:28:in `load'
+  spring (2.0.2) lib/spring/client/rails.rb:28:in `call'
+  spring (2.0.2) lib/spring/client/command.rb:7:in `call'
+  spring (2.0.2) lib/spring/client.rb:30:in `run'
+  spring (2.0.2) bin/spring:49:in `<top (required)>'
+  spring (2.0.2) lib/spring/binstub.rb:31:in `load'
+  spring (2.0.2) lib/spring/binstub.rb:31:in `<top (required)>'
+  bin/spring:15:in `require'
+  bin/spring:15:in `<top (required)>'
+  bin/rails:3:in `load'
+  bin/rails:3:in `<main>'
+
+
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/actionpack-4.2.7/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (4.3ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/actionpack-4.2.7/lib/action_dispatch/middleware/templates/routes/_route.html.erb (4.6ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/actionpack-4.2.7/lib/action_dispatch/middleware/templates/routes/_table.html.erb (2.0ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/actionpack-4.2.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.3ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/actionpack-4.2.7/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (117.1ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.6ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (53.3ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.9ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.6ms)
+  Rendered /Users/juliannfields/.rvm/gems/ruby-2.2.4/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (114.8ms)
+
+
+Started GET "/login" for ::1 at 2017-10-12 03:32:15 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (2.5ms)
+  Rendered partials/nav/_base_nav_left.html.erb (1.7ms)
+  Rendered partials/nav/_base_nav_right.html.erb (2.8ms)
+  Rendered partials/_nav.html.erb (15.0ms)
+  Rendered partials/_flash.html.erb (1.4ms)
+  Rendered partials/_home_slider.html.erb (3.0ms)
+  Rendered partials/_footer.html.erb (2.2ms)
+Completed 200 OK in 457ms (Views: 448.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/auth/facebook" for ::1 at 2017-10-12 03:32:20 -0400
+(facebook) Request phase initiated.
+
+
+Started GET "/auth/facebook" for ::1 at 2017-10-12 03:32:21 -0400
+(facebook) Request phase initiated.
+
+
+Started GET "/auth/facebook/callback?error_code=1349048&error_message=Can%27t+Load+URL%3A+The+domain+of+this+URL+isn%27t+included+in+the+app%27s+domains.+To+be+able+to+load+this+URL%2C+add+all+domains+and+subdomains+of+your+app+to+the+App+Domains+field+in+your+app+settings.&state=b916670e9e765b876c2b537af31445a888f9d3b45d2acd62" for ::1 at 2017-10-12 03:33:52 -0400
+(facebook) Callback phase initiated.
+(facebook) Authentication failure! no_authorization_code: OmniAuth::Strategies::Facebook::NoAuthorizationCodeError, must pass either a `code` (via URL or by an `fbsr_XXX` signed request cookie)
+
+OmniAuth::Strategies::Facebook::NoAuthorizationCodeError - must pass either a `code` (via URL or by an `fbsr_XXX` signed request cookie):
+  omniauth-facebook (4.0.0) lib/omniauth/strategies/facebook.rb:147:in `with_authorization_code!'
+  omniauth-facebook (4.0.0) lib/omniauth/strategies/facebook.rb:66:in `callback_phase'
+  omniauth (1.7.1) lib/omniauth/strategy.rb:236:in `callback_call'
+  omniauth (1.7.1) lib/omniauth/strategy.rb:188:in `call!'
+  omniauth (1.7.1) lib/omniauth/strategy.rb:168:in `call'
+  omniauth (1.7.1) lib/omniauth/strategy.rb:190:in `call!'
+  omniauth (1.7.1) lib/omniauth/strategy.rb:168:in `call'
+  omniauth (1.7.1) lib/omniauth/builder.rb:63:in `call'
+  meta_request (0.4.0) lib/meta_request/middlewares/app_request_handler.rb:13:in `call'
+  meta_request (0.4.0) lib/meta_request/middlewares/meta_request_handler.rb:13:in `call'
+  rack (1.6.8) lib/rack/etag.rb:24:in `call'
+  rack (1.6.8) lib/rack/conditionalget.rb:25:in `call'
+  rack (1.6.8) lib/rack/head.rb:13:in `call'
+  actionpack (4.2.7) lib/action_dispatch/middleware/params_parser.rb:27:in `call'
+  actionpack (4.2.7) lib/action_dispatch/middleware/flash.rb:260:in `call'
+  rack (1.6.8) lib/rack/session/abstract/id.rb:225:in `context'
+  rack (1.6.8) lib/rack/session/abstract/id.rb:220:in `call'
+  actionpack (4.2.7) lib/action_dispatch/middleware/cookies.rb:560:in `call'
+  activerecord (4.2.7) lib/active_record/query_cache.rb:36:in `call'
+  activerecord (4.2.7) lib/active_record/connection_adapters/abstract/connection_pool.rb:653:in `call'
+  activerecord (4.2.7) lib/active_record/migration.rb:377:in `call'
+  actionpack (4.2.7) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.7) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.7) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.7) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.7) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.7) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.7) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  better_errors (2.1.1) lib/better_errors/middleware.rb:84:in `protected_app_call'
+  better_errors (2.1.1) lib/better_errors/middleware.rb:79:in `better_errors_call'
+  better_errors (2.1.1) lib/better_errors/middleware.rb:57:in `call'
+  actionpack (4.2.7) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  rack-contrib (1.4.0) lib/rack/contrib/response_headers.rb:17:in `call'
+  meta_request (0.4.0) lib/meta_request/middlewares/headers.rb:16:in `call'
+  web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+  actionpack (4.2.7) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.7) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.7) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.7) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.7) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.7) lib/rails/rack/logger.rb:20:in `call'
+  quiet_assets (1.1.0) lib/quiet_assets.rb:27:in `call_with_quiet_assets'
+  actionpack (4.2.7) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.8) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.8) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.7) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.8) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.7) lib/action_dispatch/middleware/static.rb:120:in `call'
+  rack (1.6.8) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.7) lib/rails/engine.rb:518:in `call'
+  railties (4.2.7) lib/rails/application.rb:165:in `call'
+  rack (1.6.8) lib/rack/content_length.rb:15:in `call'
+  thin (1.7.0) lib/thin/connection.rb:86:in `block in pre_process'
+  thin (1.7.0) lib/thin/connection.rb:84:in `pre_process'
+  thin (1.7.0) lib/thin/connection.rb:53:in `process'
+  thin (1.7.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.2.3) lib/eventmachine.rb:194:in `run'
+  thin (1.7.0) lib/thin/backends/base.rb:73:in `start'
+  thin (1.7.0) lib/thin/server.rb:162:in `start'
+  rack (1.6.8) lib/rack/handler/thin.rb:19:in `run'
+  rack (1.6.8) lib/rack/server.rb:287:in `start'
+  railties (4.2.7) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.7) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.7) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.7) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.7) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:9:in `<top (required)>'
+  spring (2.0.2) lib/spring/client/rails.rb:28:in `call'
+  spring (2.0.2) lib/spring/client/command.rb:7:in `call'
+  spring (2.0.2) lib/spring/client.rb:30:in `run'
+  spring (2.0.2) bin/spring:49:in `<top (required)>'
+  spring (2.0.2) lib/spring/binstub.rb:31:in `<top (required)>'
+  bin/spring:15:in `<top (required)>'
+  bin/rails:3:in `<main>'
+
+
+
+Started POST "/__better_errors/2cce96dc6d6d3132/variables" for ::1 at 2017-10-12 03:33:52 -0400
+
+
+Started GET "/auth/facebook" for ::1 at 2017-10-12 03:34:01 -0400
+(facebook) Request phase initiated.
+
+
+Started GET "/auth/facebook" for ::1 at 2017-10-12 03:34:01 -0400
+(facebook) Request phase initiated.
+
+
+Started GET "/login" for ::1 at 2017-10-12 03:34:32 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (0.8ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.4ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.2ms)
+  Rendered partials/_nav.html.erb (6.9ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (0.9ms)
+  Rendered partials/_footer.html.erb (0.3ms)
+Completed 200 OK in 54ms (Views: 53.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/auth/google_oauth2" for ::1 at 2017-10-12 03:34:37 -0400
+(google_oauth2) Request phase initiated.
+
+
+Started GET "/auth/google_oauth2" for ::1 at 2017-10-12 03:34:37 -0400
+(google_oauth2) Request phase initiated.
+
+
+Started GET "/auth/facebook" for ::1 at 2017-10-12 03:34:42 -0400
+(facebook) Request phase initiated.
+
+
+Started GET "/auth/facebook" for ::1 at 2017-10-12 03:34:42 -0400
+(facebook) Request phase initiated.
+
+
+Started GET "/login" for ::1 at 2017-10-12 03:37:37 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (0.5ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.5ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.2ms)
+  Rendered partials/_nav.html.erb (5.4ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (1.4ms)
+  Rendered partials/_footer.html.erb (0.5ms)
+Completed 200 OK in 1112ms (Views: 1111.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2017-10-12 03:40:25 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (0.6ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.1ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.2ms)
+  Rendered partials/_nav.html.erb (3.9ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (1.5ms)
+  Rendered partials/_footer.html.erb (0.4ms)
+Completed 200 OK in 48ms (Views: 47.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2017-10-12 03:40:31 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.0ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.4ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.4ms)
+  Rendered partials/_nav.html.erb (6.1ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (1.0ms)
+  Rendered partials/_footer.html.erb (0.3ms)
+Completed 200 OK in 45ms (Views: 44.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2017-10-12 03:40:45 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (0.5ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.1ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.1ms)
+  Rendered partials/_nav.html.erb (4.0ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (0.7ms)
+  Rendered partials/_footer.html.erb (0.2ms)
+Completed 200 OK in 41ms (Views: 40.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2017-10-12 03:41:07 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (0.5ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.2ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.5ms)
+  Rendered partials/_nav.html.erb (5.0ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (0.9ms)
+  Rendered partials/_footer.html.erb (0.3ms)
+Completed 200 OK in 517ms (Views: 516.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2017-10-12 03:41:21 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (0.5ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.2ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.3ms)
+  Rendered partials/_nav.html.erb (5.2ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (1.7ms)
+  Rendered partials/_footer.html.erb (0.6ms)
+Completed 200 OK in 534ms (Views: 533.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2017-10-12 03:43:12 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (0.8ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.2ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.2ms)
+  Rendered partials/_nav.html.erb (6.3ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (0.9ms)
+  Rendered partials/_footer.html.erb (0.3ms)
+Completed 200 OK in 550ms (Views: 549.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/home" for ::1 at 2017-10-12 03:43:20 -0400
+Processing by HomeController#home as HTML
+  Rendered home/_bookshelf.html.erb (3.2ms)
+  Rendered home/_top_works.html.erb (2.3ms)
+  Rendered home/_general_home.html.erb (10.1ms)
+  Rendered home/home.html.erb within layouts/application (12.3ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.1ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.1ms)
+  Rendered partials/_nav.html.erb (4.0ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (0.7ms)
+  Rendered partials/_footer.html.erb (0.2ms)
+Completed 200 OK in 78ms (Views: 77.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/home" for ::1 at 2017-10-12 03:43:27 -0400
+Processing by HomeController#home as HTML
+  Rendered home/_bookshelf.html.erb (2.1ms)
+  Rendered home/_top_works.html.erb (0.9ms)
+  Rendered home/_general_home.html.erb (6.1ms)
+  Rendered home/home.html.erb within layouts/application (7.5ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.1ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.3ms)
+  Rendered partials/_nav.html.erb (5.8ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (0.8ms)
+  Rendered partials/_footer.html.erb (0.4ms)
+Completed 200 OK in 51ms (Views: 50.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/projects/new" for ::1 at 2017-10-12 03:43:31 -0400
+Processing by ProjectsController#new as HTML
+  Rendered projects/_project_roles_fields.html.erb (13.8ms)
+  Rendered projects/_project_roles_fields.html.erb (8.6ms)
+  Rendered projects/_project_tabbed_form.html.erb (505.9ms)
+  Rendered projects/new.html.erb within layouts/application (507.8ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.2ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.6ms)
+  Rendered partials/_nav.html.erb (6.7ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (1.0ms)
+  Rendered partials/_footer.html.erb (0.4ms)
+Completed 200 OK in 640ms (Views: 566.2ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/login" for ::1 at 2017-10-12 03:43:33 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (0.7ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.1ms)
+  Rendered partials/nav/_base_nav_right.html.erb (0.1ms)
+  Rendered partials/_nav.html.erb (4.3ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_home_slider.html.erb (1.0ms)
+  Rendered partials/_footer.html.erb (0.4ms)
+Completed 200 OK in 88ms (Views: 87.1ms | ActiveRecord: 0.0ms)
