@@ -14,3 +14,7 @@
  *= require_materialize
  *= require_self
  */
+
+ .carousel {
+     display: none;
+ }
