@@ -18,3 +18,8 @@
  .carousel {
      display: none;
  }
+
+ .login_button {
+     width: 250px;
+     height: auto;
+ }

@@ -1,35 +1,45 @@
 <div class="container">
-
+  
   <h3>Log In</h3>
   <div class="divider"></div>
   <br><br>
-
-  <li><%= link_to "Facebook", "/auth/facebook", id: "sign_in" %></li>
-  <li><%= link_to "google", "/auth/google_oauth2", id: "sign_in" %></li>
+  
+  <div class="section">
+    <div class="center">
+      <%= link_to "/auth/facebook", id: "sign_in" do %>
+      <%= image_tag  "facebook_button.png", class:"login_button" %>
+      <% end %>
+    </div>
+    <div class="center">
+      <%= link_to "/auth/google_oauth2", id: "sign_in" do %>
+      <%= image_tag  "btn_google_signin_light_normal_web.png", class:"login_button" %>
+      <% end %>
+    </div>
+  </div>
   
   <div class="divider"></div>
   <br><br>
-
+  
   <div class="section">
     <%= form_tag sessions_path do %>
-
-      <!-- form -->
-      <div class="control-group">
-        <%= label_tag :email %>
-        <div class="controls">
-          <%= text_field_tag :email, params[:email] %>
-        </div>
+    
+    <!-- form -->
+    <div class="control-group">
+      <%= label_tag :email %>
+      <div class="controls">
+        <%= text_field_tag :email, params[:email] %>
       </div>
-
-      <div class="control-group">
-        <%= label_tag :password %>
-        <div class="controls">
-          <%= password_field_tag :password %>
-        </div>
+    </div>
+    
+    <div class="control-group">
+      <%= label_tag :password %>
+      <div class="controls">
+        <%= password_field_tag :password %>
       </div>
-      
-      <div class="waves-effect waves-light btn left"><%= link_to "New User", new_user_path %></div>
-      <div class="waves-effect waves-light btn right"><%= submit_tag "Log In" %></div>
+    </div>
+    
+    <div class="waves-effect waves-light btn left"><%= link_to "New User", new_user_path %></div>
+    <div class="waves-effect waves-light btn right"><%= submit_tag "Log In" %></div>
     <% end %>
   </div>
 </div>
