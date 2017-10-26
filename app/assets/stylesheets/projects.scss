@@ -10,6 +10,16 @@
         flex-direction: column;
         display: -webkit-flex;
         display: flex;
+
+        .tab {
+            a {
+                color: black;
+            }
+
+            a.active {
+                background-color: #c4f8da;
+            }
+        }
     }
 
     .tab {
@@ -30,5 +40,9 @@
 
     .indicator {
         display: none;
+    }
+
+    .a {
+        color: white;
     }
 }
