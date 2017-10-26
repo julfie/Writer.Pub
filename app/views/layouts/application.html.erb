@@ -39,15 +39,17 @@
     }(document, 'script', 'facebook-jssdk'));
   </script>
   
-  <header>
-    <%= render :partial => "partials/nav" %>      
+  <header>     
+    <div class="container">
+        <%= render :partial => "partials/nav" %> 
+    </div>
   </header>
   
   <main>
     <%= render :partial => "partials/flash" %> 
 
     <!-- TODO: make it conditional to show only for home page -->
-    <%= render :partial => "partials/home_slider" %>        
+    <!-- <%= render :partial => "partials/home_slider" %>         -->
     
     <div class="container">
       <%= yield %>  

@@ -1,25 +1,53 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
- *
- *= require_tree .
- *= require_materialize
- *= require_self
- */
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+* or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the bottom of the
+* compiled file so the styles you add here take precedence over styles defined in any styles
+* defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+* file per style scope.
+*
+*= require_tree .
+*= require_materialize
+*= require_self
+*/
 
- .carousel {
-     display: none;
- }
+.carousel {
+    display: none;
+}
 
- .login_button {
-     width: 250px;
-     height: auto;
- }
+.login_button {
+    width: 250px;
+    height: auto;
+}
+
+.carousel .carousel-item>img {
+    margin-top: -360px;
+}
+
+.carousel.carousel-slider {
+    height: 615px !important;
+}
+
+nav, .side-nav {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+/* aaf7c9 dark */
+/* c4f8da normal */
+
+.tabs .tab a {
+    color: black !important;
+}
+
+.tabs .tab a:hover, .tabs .tab a.active {
+    color: #70f3a4 !important;
+  }
+
+  .tabs .indicator {
+    background-color: #c4f8da;
+}
