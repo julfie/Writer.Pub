@@ -18,8 +18,13 @@ gem 'bcrypt'
 gem 'bcrypt-ruby'
 
 # o auth
+
 gem 'omniauth-facebook'
 gem "omniauth-google-oauth2", "~> 0.2.1"
+
+
+# gem to allow telephone number linking
+gem 'tel_to_helper'
 
 # Use a gem for handling pagination
 gem 'will_paginate'

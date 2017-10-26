@@ -1,4 +1,108 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+<div class="section">
+    <div class="row">
+        <div class="card  col s4">
+            <div class="card-image">
+                <%= image_tag  "bookcover.jpg" %>
+                <span class="card-title">
+                    <%= @project.title %>
+                    <p class="grey-text"> - <%= @project.genre %> - </p>
+                </span>
+            </div>
+            <div class="card-content">
+                <p><%= @project.proj_description %></p>
+            </div>
+            <div class="card-action">
+                <a href="#">This is a link</a>
+            </div>
+        </div>
+        <div class="col s1"></div>
+        <div class="card small col s7">
+            <div class="card-content">
+                <span class="card-title"><h5>Additional Info</h5></span>
+                <div class="container">
+                    <table>
+                        <thead>
+                            <th colspan="2"></th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p><b>Dates: </b></p>
+                                </td>
+                                <td>
+                                    <p><%= @project.start_date %> - <% if @project.end_date.nil? %> continuing <% else %> <%= @project.end_date %> <% end %></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p><b>Category: </b></p>
+                                </td>
+                                <td>
+                                    <p><%= @project.category %></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p><b>Work Status: </b></p>
+                                </td>
+                                <td>
+                                    <p><%= @project.status %></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p><b>Publicity Status: </b></p>
+                                </td>
+                                <td>
+                                    <p><%= @project.preview_level %></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col s1"></div>
+        <div class="card small col s7">
+            <div class="card-content">
+                <span class="card-title"><h5>Participants</h5></span>
+                <div class="container">
+                    <table>
+                        <thead>
+                            <th>Name</th>
+                            <th>Role</th>
+                        </thead>
+                        <tbody>
+                            <% unless @project.owner.nil? %>
+                                <tr>
+                                    <td>
+                                        <%= @project.owner.name %>
+                                    </td>
+                                    <td>
+                                        Owner
+                                    </td>
+                                </tr>
+                            <% end %>
+                            <% @project_team.each do |member| %>
+                                <tr>
+                                    <td>
+                                        <%= member.name %>
+                                    </td>
+                                    <td>
+                                        <%= member.role %>
+                                    </td>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <%= link_to 'Edit', edit_project_path(@project) %> |
+    <%= link_to 'Back', projects_path %>
+</div>
+</div>
