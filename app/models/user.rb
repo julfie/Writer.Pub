@@ -19,8 +19,8 @@ class User < ActiveRecord::Base
 	# validations
 	validates_presence_of :first_name
 	validates_presence_of :last_name
-	validates_presence_of :email
-	validates_format_of :email, with: /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i
+	# validates_presence_of :email
+	validates_format_of :email, with: /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i, allow_blank: true
 	validates_uniqueness_of :email
 	# validates_presence_of :username
 	# validates_uniqueness_of :username

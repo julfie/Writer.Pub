@@ -18,10 +18,12 @@ gem 'bcrypt'
 gem 'bcrypt-ruby'
 
 # o auth
-
+gem 'omniauth-oauth2'
 gem 'omniauth-facebook'
-gem "omniauth-google-oauth2", "~> 0.2.1"
-
+gem "omniauth-google-oauth2"
+# gem 'omniauth-twitter'
+gem 'omniauth-amazon'
+gem 'omniauth-medium', "~>0.1.1"
 
 # gem to allow telephone number linking
 gem 'tel_to_helper'
