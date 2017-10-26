@@ -1,0 +1,38 @@
+<div class="card-tabs">
+        <ul class="tabs tabs-fixed-width">
+            <li class="tab c4f8da"><a href="#test4">Current Projects</a></li>
+            <li class="tab"><a class="active" href="#test5">Roles Held</a></li>
+            <li class="tab"><a href="#test6">Past Projects</a></li>
+        </ul>
+    </div>
+    <div class="card-content grey lighten-4">
+        <div id="test4">
+            <% if !@current_projects.empty? %>
+                <% @current_projects.each do |role| %>
+                    <%= role.name %>
+                <% end %>
+            <% else %>
+                <h5 class="center">No current projects</h5>
+                <p class="center" color:"c4f8da"> <%= link_to "start one here!", new_project_path %></p>
+            <% end %>
+        </div>
+        <div id="test5">
+            <% if !@project_roles.empty? %>
+                <% @project_roles.each do |role| %>
+                    <%= role.name %>
+                <% end %>
+            <% else %>
+                <h5 class="center">No roles held yet</h5>
+            <% end %>
+        </div>
+        <div id="test6">
+            <% if !@past_projects.empty? %>
+                <% @past_projects.each do |role| %>
+                    <%= role.name %>
+                <% end %>
+            <% else %>
+                <h5 class="center">No past projects</h5>
+                <p class="center" color:"c4f8da"> <%= link_to "start one here!", new_project_path %></p>
+            <% end %>
+        </div>
+    </div>

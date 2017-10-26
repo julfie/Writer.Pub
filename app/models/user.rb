@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 	include Activable
 	before_save :reformat_phone
-	has_secure_password
+	# has_secure_password
 	
 	# relationships
 	has_many :messages
@@ -22,14 +22,14 @@ class User < ActiveRecord::Base
 	validates_presence_of :email
 	validates_format_of :email, with: /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i
 	validates_uniqueness_of :email
-	validates_presence_of :username
-	validates_uniqueness_of :username
-	validates_presence_of :phone_number
-	validates_format_of :phone_number, with: /\A(\d{10}|\(?\d{3}\)?[-. ]\d{3}[-.]\d{4})\z/, message: "should be 10 digits (area code needed) and delimited with dashes only"
-	validates_presence_of :password, on: :create
-	validates_presence_of :password_confirmation, on: :create
-	validates_confirmation_of :password, message: "doesn't match confirmation"
-	validates_length_of :password, minimum: 6
+	# validates_presence_of :username
+	# validates_uniqueness_of :username
+	# validates_presence_of :phone_number
+	# validates_format_of :phone_number, with: /\A(\d{10}|\(?\d{3}\)?[-. ]\d{3}[-.]\d{4})\z/, message: "should be 10 digits (area code needed) and delimited with dashes only"
+	# validates_presence_of :password, on: :create
+	# validates_presence_of :password_confirmation, on: :create
+	# validates_confirmation_of :password, message: "doesn't match confirmation"
+	# validates_length_of :password, minimum: 6
 	
 	def name
 		first_name + " " + last_name
@@ -52,9 +52,16 @@ class User < ActiveRecord::Base
 		where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
 			user.provider = auth.provider
 			user.uid = auth.uid
-			user.name = auth.info.name
+			name = auth.info.name.split
+			user.first_name = name[0]
+			user.last_name = name[1]
+			user.email = auth.info.email
 			user.oauth_token = auth.credentials.token
-			user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+			if !auth.credentials.expires_at.nil?
+				user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+			else
+				user.oauth_expires_at = (Time.now + 18000)
+			end
 			user.save!
 		end
 	end

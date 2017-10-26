@@ -9,8 +9,9 @@ class UsersController < ApplicationController
 
 	def show
 		@user_projects = @user.projects.active.chronological
-		#@project_roles
-		#@user_roles
+		@project_roles = @user.user_roles.map{r|r.name}.sort
+		@current_projects = @user.projects.active.alphabetical
+		@past_projects = @user.projects.completed.alphabetical
     #@messages
 	end
 

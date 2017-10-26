@@ -1,0 +1,33 @@
+<div class="card-content">
+        <div class="row">
+            <div class="col s3">
+                <%= image_tag  "person.png", class:'circle responsive-img grey' %>
+            </div>
+            <div class="col s9">
+                <h4>
+                    <%= @user.name %>
+                </h4>
+                <% if @user.username %>
+                    <p>
+                        <b>Username</b>: <%= @user.username %>
+                    </p>
+                <% end %>
+                <p>
+                    <b>Email</b>: <%= mail_to @user.email, @user.email, encode: "javascript" %>
+                </p>
+                <% if @user.phone_number != "" %>
+                    <p>
+                        <b>Phone</b>: <%= tel_to @user.phone_number, @user.phone_number %>
+                    </p>
+                <% end %>
+                <p>
+                    <b>Active</b>: <%= @user.active %>
+                </p>
+                <br>
+                <br>
+                <div class="col s4 offset-s7">
+                    <%= link_to 'Edit Information', edit_user_path(@user) %>
+                </div>
+            </div>
+        </div>
+    </div>

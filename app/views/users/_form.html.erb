@@ -34,18 +34,9 @@
         </div>
       </div>
       
-      <div class="row">
-        <div class="input-field col s6">
-          <%= f.input :password, :params => :password %>
-        </div>
-        <div class="input-field col s6">
-          <%= f.input :password_confirmation, :params => :password_confirmation %>
-        </div>
-      </div>
-      
       <div class="form-actions">
         <div class="waves-effect waves-light btn right"><%= f.submit %></div>
-        <div class="waves-effect waves-light btn left"><%= link_to 'Cancel', root_path %></div>
+        <div class="waves-effect waves-light btn left"><%= link_to 'Cancel', users_path %></div>
       </div>
     </form>
   </div>
