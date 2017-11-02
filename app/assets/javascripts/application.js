@@ -17,6 +17,65 @@
 //= require_tree .
 
 $(document).ready(function(){
-    $('.carousel.carousel-slider').carousel({fullWidth: true});
-  });
+  $('.carousel.carousel-slider').carousel({fullWidth: true});
+});
 
+
+$(document).ready(function(){
+  primeCategoryData(); 
+  primeGenreData(); 
+});
+
+function primeCategoryData(){
+  // category list
+  $.ajax({
+    type: "GET",
+    dataType: "json",
+    url: "/projects/categories",
+    success: function(results){
+      var data = {};
+      for (i = 0; i < results.length; i++) { 
+        data[results[i]] = null;
+      }
+      
+      $('#project_category').autocomplete({
+        data,
+        limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+        onAutocomplete: function(val) {
+          // Callback function when value is autcompleted.
+        },
+        minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+      });
+    },
+    error: function (){
+      window.alert("something wrong!");
+    }
+  });
+}
+
+function primeGenreData(){
+  // category list
+  $.ajax({
+    type: "GET",
+    dataType: "json",
+    url: "/projects/genre",
+    success: function(results){
+      var data = {};
+      for (i = 0; i < results.length; i++) { 
+        data[results[i]] = null;
+      }
+      
+      $('#project_genre').autocomplete({
+        data,
+        limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+        onAutocomplete: function(val) {
+          // Callback function when value is autcompleted.
+        },
+        minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+      });
+    },
+    error: function (){
+      window.alert("something wrong!");
+    }
+  });
+}

@@ -20,6 +20,20 @@ class ProjectsController < ApplicationController
     def edit
     end
 
+    def categories
+        @categories = Project.all.map{|p|p.category}.sort
+        respond_to do |format|
+            format.json {render json: @categories}
+        end
+    end
+
+    def genre
+        @categories = Project.all.map{|p|p.genre}.sort
+        respond_to do |format|
+            format.json {render json: @categories}
+        end
+    end
+
     def create
         @project = Project.new(project_params)
         @project.start_date = Date.today
