@@ -21,7 +21,7 @@ gem 'bcrypt-ruby'
 gem 'omniauth-oauth2'
 gem 'omniauth-facebook'
 gem "omniauth-google-oauth2"
-gem 'omniauth-medium', "~>0.1.1"
+gem 'omniauth-medium', github: 'cmu-is-projects/omniauth-medium'
 
 # gem to allow telephone number linking
 gem 'tel_to_helper'
