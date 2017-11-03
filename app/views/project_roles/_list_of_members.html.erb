@@ -1,0 +1,18 @@
+<div id="member_list">
+    <% unless @project_roles.nil? %>
+        <table>
+            <tbody>
+                <% @project_roles.each do |pr| %>
+                    <tr>
+                        <td>
+                            <%= pr.user.name %>
+                        </td>
+                        <td>
+                            <%= pr.role.name %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    <% end %>
+</div>
