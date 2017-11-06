@@ -16,8 +16,22 @@
 //= require_tree .
 
 $(document).ready(function(){
-  $('.carousel.carousel-slider').carousel({fullWidth: true});
+  $('.carousel.carousel-slider').carousel({fullWidth: true, duration: 400});
+  setInterval(slide1, 5000);
+  setInterval(slide2, 5000);
 });
+
+function slide1(){
+  if (!($('.carousel.carousel-slider.featured').is(":hover"))){
+    $('.carousel.carousel-slider.featured').carousel('next');
+  }
+}
+
+function slide2(){
+  if (!($('.carousel.carousel-slider.new').is(":hover"))){
+    $('.carousel.carousel-slider.new').carousel('next');
+  }
+}
 
 
 $(document).ready(function(){
@@ -78,3 +92,11 @@ function primeGenreData(){
     }
   });
 }
+
+$(document).ready(function(){
+	$(".queue-search").keyup(function(){
+		var query = $(".queue-search").val();
+		$('.search-card').hide();
+		$('.search-card:contains('+query+')').show();
+	});
+});
