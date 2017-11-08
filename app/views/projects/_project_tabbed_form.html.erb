@@ -75,7 +75,7 @@
       <!-- MEMBERS TAB -->
       <div id="Members" class="tab-content">
         <%= f.simple_fields_for :project_roles do |project_role_form| %>
-          <%= render :partial => "project_roles_fields", :locals => { :f => project_role_form } %>
+          <%= render :partial => "project_roles/project_roles_fields", :locals => { :f => project_role_form } %>
         <% end %>
         
         <p>

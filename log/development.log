@@ -59379,3 +59379,42 @@ Completed 200 OK in 3ms (Views: 0.2ms | ActiveRecord: 0.3ms)
 Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.2ms)
   [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
   [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+
+
+Started GET "/projects/new" for 127.0.0.1 at 2017-11-08 10:26:54 -0500
+Processing by ProjectsController#new as HTML
+  Rendered projects/_project_tabbed_form.html.erb (507.4ms)
+  Rendered projects/new.html.erb within layouts/application (509.8ms)
+Completed 500 Internal Server Error in 562ms (ActiveRecord: 1.3ms)
+
+EOFError - end of file reached:
+
+
+
+Started POST "/__better_errors/df1607d73546ca6f/variables" for 127.0.0.1 at 2017-11-08 10:26:56 -0500
+
+
+Started GET "/projects/new" for 127.0.0.1 at 2017-11-08 10:28:42 -0500
+Processing by ProjectsController#new as HTML
+  Rendered project_roles/_project_roles_fields.html.erb (13.7ms)
+  Rendered project_roles/_project_roles_fields.html.erb (6.2ms)
+  Rendered projects/_project_tabbed_form.html.erb (31.2ms)
+  Rendered projects/new.html.erb within layouts/application (32.5ms)
+  Rendered partials/nav/_base_nav_left.html.erb (0.2ms)
+  Rendered partials/nav/_base_nav_right.html.erb (1.8ms)
+  Rendered partials/_nav.html.erb (7.2ms)
+  Rendered partials/_flash.html.erb (0.1ms)
+  Rendered partials/_footer.html.erb (0.3ms)
+Completed 200 OK in 107ms (Views: 105.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/projects/categories" for 127.0.0.1 at 2017-11-08 10:28:44 -0500
+
+
+Started GET "/projects/genre" for 127.0.0.1 at 2017-11-08 10:28:44 -0500
+Processing by ProjectsController#categories as JSON
+  [1m[36mProject Load (0.2ms)[0m  [1mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.2ms)
+Processing by ProjectsController#genre as JSON
+  [1m[36mProject Load (0.3ms)[0m  [1mSELECT "projects".* FROM "projects"[0m
+Completed 200 OK in 32ms (Views: 0.7ms | ActiveRecord: 0.6ms)
