@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
     def index
         @active_projects = Project.active.chronological.alphabetical.paginate(page: params[:page]).per_page(10)
         @completed_projects = Project.completed.chronological.alphabetical.paginate(page: params[:page]).per_page(10)
-        @all_projects = Project.chronological.alphabetical.paginate(page: params[:page]).per_page(10)
+        @all_projects = Project.chronological.alphabetical#.paginate(page: params[:page]).per_page(10)
     end
 
     def show
@@ -41,8 +41,10 @@ class ProjectsController < ApplicationController
     
         if @project.save
             # if saved to database
-            flash[:notice] = "#{@project.title} has been created."
-            redirect_to @project # go to show project page
+            respond_to do |format|
+                format.html { redirect_to @project, notice: "#{@project.title} has been created." }
+                format.js {}
+            end
         else
             # return to the 'new' form
 			flash[:error] = "This project could not be created."
@@ -72,7 +74,9 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-        params.fetch(:project, {}).permit(:proj_description, :genre, :title, :category, :preview_level, :status, project_roles: [:role_id, :user_id, :invite_num])
+        params.fetch(:project, {}).permit(:proj_description, :genre, :title, :category, :preview_level, :status, :start_date, :owner)
+        # params.fetch[:start_date] = Date.today
+        # params.fetch[:owner] = @current_user
     end
 
 end

@@ -1,17 +1,3 @@
-<%= simple_nested_form_for @project, :html => { :class => 'form-horizontal' } do |f| %>
-<!-- error handling -->
-<% if @project.errors.any? %>
-<div id="error_explanation">
-  <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
-  
-  <ul>
-    <% @project.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
-    <% end %>
-  </ul>
-</div>
-<% end %>
-
 <div class="row">
   <div class="tabs-vertical">
     <div class="col s5 m4 l2">
@@ -29,110 +15,22 @@
     </div>
     
     <div class="col s8 m9 l8">
-      <form class="col s12">
-        <!-- BASICS TAB -->
-        <div id="Basics" class="tab-content">
-          
-          <div class="row">
-            <div class="input-field col s12">
-              <%= f.input :title, :params => :title %>
-            </div>
-          </div>
-          
-          <div class="row">
-            <div class="input-field col s12">
-              <%= f.input :category, :params => :category %>
-            </div>
-          </div>
-          
-          <div class="row">
-            <div class="input-field col s12">
-              <%= f.input :genre, :params => :genre %>
-            </div>
-          </div>
-          
-          <div class="row">
-            <div class="input-field col s12">
-              <%= f.input :proj_description, class:"materialize-textarea", :'data-length' => 200 %>
-            </div>
-          </div>
-          
-          <div class="form-actions row">
-            <div class="waves-effect waves-light btn right">  
-              <a onclick="
-              $(document).ready(function(){
-                $('ul.tabs').tabs('select_tab', 'Members');
-              });">
-              NEXT
-            </a>
-          </div>
-          <div class="waves-effect waves-light btn left">
-            <%= link_to 'Back', home_path %>
-          </div>
-        </div>
+      <!-- BASICS TAB -->
+      <div id="Basics" class="tab-content">
+        <%= render  "project_basics_form" %>
       </div>
+      
       
       <!-- MEMBERS TAB -->
       <div id="Members" class="tab-content">
-        <%= f.simple_fields_for :project_roles do |project_role_form| %>
-          <%= render :partial => "project_roles/project_roles_fields", :locals => { :f => project_role_form } %>
-        <% end %>
-        
-        <p>
-          <br /><%= f.link_to_add("Add Member", :project_roles, :class => 'waves-effect waves-light btn right') %>
-        </p>
-
-        <br><br><br>
-        
-        <div class="waves-effect waves-light btn right">  
-          <a onclick="$(document).ready(function(){
-            $('ul.tabs').tabs('select_tab', 'Settings');
-          });">
-          SKIP
-        </a>
+        <%= render :partial => "project_roles/list_of_members" %>
+        <%= render :partial => "project_roles/project_roles_fields" %>
       </div>
-      <div class="waves-effect waves-light btn left">  
-        <a onclick="$(document).ready(function(){
-          $('ul.tabs').tabs('select_tab', 'Basics');
-        });">
-        BACK
-      </a>
+      
+      <!-- SETTINGS TAB -->
+      <div id="Settings" class="tab-content">
+        <%= render :partial => "project_settings_form" %>
+      </div>  
     </div>
   </div>
-  
-  <!-- SETTINGS TAB -->
-  <div id="Settings" class="tab-content">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s12">
-          <%= f.input :preview_level %>
-        </div>
-      </div>
-      
-      <div class="row">
-        <div class="input-field col s12">
-          <%= f.input :status %>
-        </div>
-      </div>
-      
-      <div class="form-actions row">
-        <div class="waves-effect waves-light btn right">  
-          <%= f.submit nil %>
-        </div>
-        <div class="waves-effect waves-light btn left">
-          <a onclick="
-          $(document).ready(function(){
-            $('ul.tabs').tabs('select_tab', 'Basics');
-          });">
-          BACK
-        </a>
-      </div>
-    </div>
-  </form>
 </div>
-</form>
-</div>
-</div>
-</div>
-
-<% end %>

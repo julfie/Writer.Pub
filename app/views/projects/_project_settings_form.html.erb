@@ -1,0 +1,25 @@
+<%= simple_form_for @project, :html => { :class => 'form-horizontal' } do |f| %>
+    <div class="row">
+        <div class="input-field col s12">
+            <%= f.input :preview_level %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s12">
+            <%= f.input :status %>
+        </div>
+    </div>
+
+    <div class="form-actions row">
+        <div class="waves-effect waves-light btn right">  
+            <%= f.submit %>
+        </div>
+
+        <div class="waves-effect waves-light btn left">
+            <a onclick="$(document).ready(function(){$('ul.tabs').tabs('select_tab', 'Members');});">
+                BACK
+            </a>
+        </div>
+    </div>
+<% end %>

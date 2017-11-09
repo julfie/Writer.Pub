@@ -1,8 +1,26 @@
-<div class="row">
-    <div class="input-field col s6">
-        <%= f.input :user_id, :params => :user %>
+<% @project_role = ProjectRole.new %>
+<%= simple_form_for @project_role, remote: true, :url => project_roles_path(@project_role), :html => { :method => :post, :class => 'form-horizontal', :id => 'projectRoleSubmit' } do |f| %>
+    <div class="row">
+        <div class="input-field col s5">
+            <%= f.input :user_id %>
+        </div>
+        <div class="input-field col s5">
+            <%= f.input :role_id %>
+        </div>
+        <div class="col s1"></div>
     </div>
-    <div class="input-field col s6">
-        <%= f.input :role, :params => :role %>
-    </div>
+<% end %>
+
+<br><br><br>
+
+<div class="waves-effect waves-light btn right">  
+    <a class="white-text" onclick="$(document).ready(function(){$('ul.tabs').tabs('select_tab', 'Settings');});">
+        NEXT
+    </a>
+</div>
+
+<div class="waves-effect waves-light btn left">  
+    <a class="white-text" onclick="$(document).ready(function(){$('ul.tabs').tabs('select_tab', 'Basics');});">
+        BACK
+    </a>
 </div>

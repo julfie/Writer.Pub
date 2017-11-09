@@ -1,0 +1,4 @@
+// $('form#projectSubmit').trigger('submit.rails');
+$('form#projectSubmit').on('ajax:complete', function() {
+    $('ul.tabs').tabs('select_tab', 'Members');
+});

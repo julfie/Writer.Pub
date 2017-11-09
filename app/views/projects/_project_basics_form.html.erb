@@ -1,0 +1,47 @@
+<%= simple_form_for @project, remote: true, :html => { :class => 'form-horizontal', :id => 'projectSubmit' } do |f| %>
+    <!-- error handling -->
+    <% if @project.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+            
+            <ul>
+                <% @project.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+        <div class="input-field col s12">
+            <%= f.input :title, :params => :title %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s12">
+            <%= f.input :category, :params => :category %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s12">
+            <%= f.input :genre, :params => :genre %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s12">
+            <%= f.input :proj_description, class:"materialize-textarea", :'data-length' => 150 %>
+        </div>
+    </div>
+
+    <div class="form-actions row">
+        <div class="waves-effect waves-light btn right">  
+            <%= f.submit "Next" %>
+        </div>
+        <div class="waves-effect waves-light btn left">
+            <%= link_to 'Back', home_path, :class => "white-text" %>
+        </div>
+    </div>
+<% end %>

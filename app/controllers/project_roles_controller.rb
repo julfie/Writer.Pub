@@ -25,11 +25,15 @@ class ProjectRolesController < ApplicationController
   # POST /project_roles.json
   def create
     @project_role = ProjectRole.new(project_role_params)
+    unless @project_role.project_id.nil?
+      @project_role.project_id = Project.last.id
+    end
 
     respond_to do |format|
       if @project_role.save
         format.html { redirect_to @project_role, notice: 'Project role was successfully created.' }
         format.json { render :show, status: :created, location: @project_role }
+        format.js {}
       else
         format.html { render :new }
         format.json { render json: @project_role.errors, status: :unprocessable_entity }
