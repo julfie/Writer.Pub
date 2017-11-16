@@ -4,10 +4,6 @@ $('form#projectSubmit').on('ajax:complete', function(result) {
     $('ul.tabs').tabs('select_tab', 'Members');
 });
 
-$('form#projectSubmit').on('ajax:success', function(result) {
-    $('form#project_settings_form').replacewith('<%= render :partial => "project_settings_form" %>');
-    $('ul.tabs').tabs('select_tab', 'Members');
-});
 
 function updateProject (id) {
     $.ajax({

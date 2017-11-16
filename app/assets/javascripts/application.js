@@ -15,10 +15,18 @@
 //= require jquery_nested_form
 //= require_tree .
 
+$(document).ready(function() {
+  $('select').material_select();
+});
+
+$(document).ready(function() {
+  Materialize.updateTextFields();
+});
+
 $(document).ready(function(){
   $('.carousel.carousel-slider').carousel({fullWidth: true, duration: 400});
-  setInterval(slide1, 5000);
-  setInterval(slide2, 5000);
+  // setInterval(slide1, 5000);
+  // setInterval(slide2, 5000);
 });
 
 function slide1(){
@@ -37,6 +45,7 @@ function slide2(){
 $(document).ready(function(){
   primeCategoryData(); 
   primeGenreData(); 
+  // primeUserData();
 });
 
 function primeCategoryData(){
@@ -89,6 +98,34 @@ function primeGenreData(){
     },
     error: function (){
       window.alert("something wrong!");
+    }
+  });
+}
+
+function primeUserData(){
+  // category list
+  $.ajax({
+    type: "GET",
+    dataType: "json",
+    url: "/project_roles/user_names",
+    success: function(results){
+      var data = {};
+      for (i = 0; i < results.length; i++) { 
+        data[results[i]] = null;
+      }
+      
+      $('#user_role_user').autocomplete({
+        data,
+        limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+        onAutocomplete: function(val) {
+          // Callback function when value is autcompleted.
+        },
+        minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+      });
+    },
+    error: function (result){
+      window.alert("something wrong: users!");
+      window.alert(result);
     }
   });
 }

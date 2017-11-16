@@ -1,5 +1,17 @@
 <style>.carousel-slider {display: inherit;}</style>
 
+<script>
+    $(document).ready(function(){
+        if (!($('.carousel.carousel-slider.featured').is(":hover"))){
+            $('.carousel.carousel-slider.featured').carousel('next');
+        }
+        
+        if (!($('.carousel.carousel-slider.new').is(":hover"))){
+            $('.carousel.carousel-slider.new').carousel('next');
+        }
+    })
+</script>
+
 <%= render :partial => "bookshelf" %>
 <%= render :partial => "top_works" %>
 <%= render :partial => "new_stories" %>
