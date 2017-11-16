@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
   # Routes for main resources
-  resources :project_roles
+  resources :project_roles do
+    collection do
+      get 'user_names'
+    end
+  end
   resources :projects do
     collection do
       get 'categories'
       get 'genre'
+      get 'set_last_proj'
     end
   end
   resources :users

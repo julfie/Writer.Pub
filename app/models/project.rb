@@ -6,6 +6,9 @@ class Project < ActiveRecord::Base
     has_many :roles, through: :project_roles
     has_many :users, through: :project_roles
 
+    STATUS = %w[active hiatus finished cancelled]
+    PREVIEW_LEVEL = %w[hidden by_invitation preview published]
+
     accepts_nested_attributes_for :project_roles, reject_if: lambda { |project_role| project_role[:user_id].blank? }, allow_destroy: true        
 
     # scopes

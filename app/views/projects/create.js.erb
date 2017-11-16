@@ -1,4 +1,18 @@
-// $('form#projectSubmit').trigger('submit.rails');
-$('form#projectSubmit').on('ajax:complete', function() {
+$('form#projectSubmit').on('ajax:complete', function(result) {
+    // $('form#project_settings_form').reload()
+    updateProject('<%= @project.id %>');
     $('ul.tabs').tabs('select_tab', 'Members');
 });
+
+$('form#projectSubmit').on('ajax:success', function(result) {
+    $('form#project_settings_form').replacewith('<%= render :partial => "project_settings_form" %>');
+    $('ul.tabs').tabs('select_tab', 'Members');
+});
+
+function updateProject (id) {
+    $.ajax({
+        type: "GET",
+        url: "set_last_proj",
+        data: {project_id: id}
+    });
+}

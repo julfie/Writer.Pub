@@ -1,13 +1,14 @@
-<%= simple_form_for @project, :html => { :class => 'form-horizontal' } do |f| %>
+<%# @last_project = Project.find(Project.last.id+1) %>
+<%= simple_form_for @last_project, :html => {:class => 'form-horizontal', :id => "project_settings_form", } do |f| %>
     <div class="row">
         <div class="input-field col s12">
-            <%= f.input :preview_level %>
+            <%= f.select :preview_level, collection: Project::PREVIEW_LEVEL %>
         </div>
     </div>
 
     <div class="row">
         <div class="input-field col s12">
-            <%= f.input :status %>
+            <%= f.select :status, collection: Project::STATUS %>
         </div>
     </div>
 

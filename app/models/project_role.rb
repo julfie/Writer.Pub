@@ -11,14 +11,15 @@ class ProjectRole < ActiveRecord::Base
     scope :by_user,     -> { joins(:user).order('users.last_name').order('users.first_name') }
     scope :by_role,     -> { joins(:role).order('roles.name') }
     scope :by_project,  -> { joins(:project).order('projects.title') }
+    scope :for_project, -> (id) { where("project_id = ?", id) }
     scope :filled,      -> { where("user_id iS NOT NULL") }
     scope :empty,       -> { where("user_id iS NULL") }
 
     # Validations
     # -----------------------------
     validates_presence_of :role_id
-    validates_presence_of :invite_num
-    validates_numericality_of :invite_num, greater_than_or_equal_to: 0
+    # validates_presence_of :invite_num
+    # validates_numericality_of :invite_num, greater_than_or_equal_to: 0
 
     # Callbacks
     # -----------------------------

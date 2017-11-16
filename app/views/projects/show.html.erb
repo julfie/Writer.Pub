@@ -88,10 +88,10 @@
                             <% @project_team.each do |member| %>
                                 <tr>
                                     <td>
-                                        <%= member.name %>
+                                        <%= member.user.name %>
                                     </td>
                                     <td>
-                                        <%= member.role %>
+                                        <%= member.role.name %>
                                     </td>
                                 </tr>
                             <% end %>

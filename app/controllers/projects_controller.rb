@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
     # before_action :check_login, except [:index, :show]   
     before_action :set_project, only: [:show, :edit, :update, :destroy]
+    # respond_to :js, :html, :json
 
     def index
         @active_projects = Project.active.chronological.alphabetical.paginate(page: params[:page]).per_page(10)
@@ -15,6 +16,7 @@ class ProjectsController < ApplicationController
     def new
         @project = Project.new
         @project.project_roles.build
+        @last_project = Project.last
     end
 
     def edit
@@ -34,6 +36,10 @@ class ProjectsController < ApplicationController
         end
     end
 
+    def set_last_proj
+        @last_project = Project.find(params[:project_id])
+    end
+
     def create
         @project = Project.new(project_params)
         @project.start_date = Date.today
@@ -41,6 +47,8 @@ class ProjectsController < ApplicationController
     
         if @project.save
             # if saved to database
+            @last_project = @project
+            logger.info(@last_project.id)
             respond_to do |format|
                 format.html { redirect_to @project, notice: "#{@project.title} has been created." }
                 format.js {}
@@ -56,6 +64,12 @@ class ProjectsController < ApplicationController
         if @project.update(project_params)
             flash[:notice] = "#{@project.title} has been updated."
             redirect_to @project
+        elsif
+            logger.info("last project ID is: ")
+            logger.info(@last_project.id)
+            @last_project.update(project_params)
+            flash[:notice] = "#{@last_project.title} has been updated."
+            redirect_to @last_project
         else
             render :action => 'edit'
         end

@@ -2,12 +2,19 @@
 <%= simple_form_for @project_role, remote: true, :url => project_roles_path(@project_role), :html => { :method => :post, :class => 'form-horizontal', :id => 'projectRoleSubmit' } do |f| %>
     <div class="row">
         <div class="input-field col s5">
-            <%= f.input :user_id %>
+            <%= f.select :user_id, options_for_select(User.alphabetical.all.map { | u | [u.email, u.id] }) %>
         </div>
         <div class="input-field col s5">
-            <%= f.input :role_id %>
+            <%= f.input :role_id, collection: Role.alphabetical.all, include_blank: true %>
         </div>
         <div class="col s1"></div>
+        <br>
+        <div >
+            <%= f.submit "add", :class => "waves-effect waves-light btn right" %>
+            <%# button_tag(class:"waves-effect waves-light btn right", id:"project_role_submit") do %>
+                <!-- <i class="large material-icons">add</i> -->
+            <%# end %>
+        </div>
     </div>
 <% end %>
 

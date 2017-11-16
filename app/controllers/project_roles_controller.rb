@@ -1,5 +1,5 @@
 class ProjectRolesController < ApplicationController
-  before_action :set_project_role
+  before_action :set_project_role, except: [:user_names, :create]#, respond_to :html,:json
 
   # GET /project_roles
   # GET /project_roles.json
@@ -21,16 +21,25 @@ class ProjectRolesController < ApplicationController
   def edit
   end
 
+  def user_names
+    @users = User.active.alphabetical.map{|u|u.name}
+    respond_to do |format|
+      format.json {render json: @users}
+    end
+    # repond_with @users
+  end
+
   # POST /project_roles
   # POST /project_roles.json
   def create
     @project_role = ProjectRole.new(project_role_params)
-    unless @project_role.project_id.nil?
-      @project_role.project_id = Project.last.id
+    unless @project_role.project_id
+      @project_role.project = Project.last
     end
 
     respond_to do |format|
       if @project_role.save
+        @project_roles = ProjectRole.for_project(@project_role.project_id).all
         format.html { redirect_to @project_role, notice: 'Project role was successfully created.' }
         format.json { render :show, status: :created, location: @project_role }
         format.js {}
