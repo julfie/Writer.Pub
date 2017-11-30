@@ -1,0 +1,4 @@
+<% categories = Project.all.map{&:category}.sort %>
+<% categories.each do |c| %>
+    <%= render :partial => "category_listing", locals: {category: c} %>
+<% end %>

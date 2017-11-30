@@ -6,7 +6,7 @@
   
   <title>Writer.pub :: <%= controller.controller_name.capitalize %></title>
   
-  <link rel="icon" href="/images/favicon.ico" type="image/ico" >
+  <link rel="icon" href="/assets/images/favicon.ico" type="image/ico" >
   
   <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
@@ -48,9 +48,6 @@
   
   <main>
     <%= render :partial => "partials/flash" %> 
-
-    <!-- TODO: make it conditional to show only for home page -->
-    <!-- <%# render :partial => "partials/home_slider" %>         -->
     
     <div class="container">
       <%= yield %>  

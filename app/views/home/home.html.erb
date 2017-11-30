@@ -1,2 +1,21 @@
+<script>
+    $(document).ready(function(){
+        $('.carousel.carousel-slider').carousel({fullWidth: true, duration: 400});
+        setInterval(slide1, 5000);
+        setInterval(slide2, 5000);
+    });
+    
+    function slide1(){
+        if (!($('.carousel.carousel-slider.featured').is(":hover"))){
+            $('.carousel.carousel-slider.featured').carousel('next');
+        }
+    }
+    
+    function slide2(){
+        if (!($('.carousel.carousel-slider.new').is(":hover"))){
+            $('.carousel.carousel-slider.new').carousel('next');
+        }
+    }
+</script>
 
 <%= render :partial => 'general_home' %>
