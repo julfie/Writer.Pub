@@ -37,6 +37,9 @@ gem 'time_date_helpers'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# to rename app
+gem 'rename'
+
 # other gems
 gem 'validates_timeliness', '~> 4.0'
 gem 'cancancan', '1.15.0'
