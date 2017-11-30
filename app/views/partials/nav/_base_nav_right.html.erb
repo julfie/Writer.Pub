@@ -36,8 +36,10 @@
             <% end %>
           <% end %>
       </li>
-      <li><a class="btn-floating black"><i class="material-icons">publish</i></a></li>
-      <li><a class="btn-floating black"><i class="material-icons">attach_file</i></a></li>
+      <% if logged_in? %>
+        <li><a class="btn-floating black"><i class="material-icons">collections_bookmark</i></a></li>
+        <li><a class="btn-floating black"><i class="material-icons">mail</i></a></li>
+        <% end %>
     </ul>
   </div>
 </li>
