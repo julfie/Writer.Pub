@@ -56,3 +56,7 @@ nav, .side-nav {
   .tabs .indicator {
     background-color: #c4f8da;
 }
+
+.section {
+    padding-bottom: 0.5rem !important;
+  }
